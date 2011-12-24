@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<title>Tutorial: Conway's Game of Life in D3</title>
+	<script type="text/javascript" src="https://github.com/mbostock/d3/raw/v1.8.3/d3.js"></script>
+	<link type="text/css" rel="stylesheet" href="reset.css" media="all"></link>
+	<style type="text/css">
+		body {
+		}
+	</style>
+  </head>
+  <body>
+		<script type="text/javascript">
+			
+			var ccx = 40, // cell count x
+				ccy = 30, // cell count y
+				cw = 20, // cellWidth
+				ch = 20,  // cellHeight
+				del = 1000,
+				xs = d3.scale.linear().domain([0,ccx]).range([0,ccx * cw]),
+				ys = d3.scale.linear().domain([0,ccy]).range([0,ccy * ch]),
+        states = new Array(),
+        fillFunction = function(d) { return d.state ? "blue" : "white" },
+        strokeFunction = function(d) { return d.state ? "blue" : "grey" }
+				
+			d3.range(ccx).forEach(function(x) { 
+				states[x] = new Array()
+				d3.range(ccy).forEach(function(y) {
+					states[x][y] = Math.random() > .8 ? true : false
+				})
+			})
+		
+			function toGrid(states) {
+				var g = []			
+				for (x = 0; x < ccx; x++) {
+					for (y = 0; y < ccy; y++) {
+						g.push({"x": x, "y": y, "state": states[x][y]})
+					}
+				}				
+				return g
+			}				
+					
+			var vis = d3.select("body")
+				.append("svg:svg")
+				.attr("class", "vis")
+				.attr("width", window.width)
+				.attr("height", window.height)					
+				
+			vis.selectAll("rect")
+				.data(function() { return toGrid(states) })
+			  .enter().append("svg:rect")
+				.attr("stroke", "grey")
+				.attr("fill", fillFunction)
+				.attr("stroke", strokeFunction)
+				.attr("x", function(d) { return xs(d.x) })
+				.attr("y", function(d) { return ys(d.y) })
+				.attr("width", cw)
+				.attr("height", ch)
+			
+			function createNewGeneration() {
+				var nextGen = new Array()
+
+				for (x = 0; x < ccx; x++) {
+					nextGen[x] = new Array()
+					for (y = 0; y < ccy; y++) {
+						var ti = y - 1 < 0 ? ccy - 1 : y - 1
+						var ri = x + 1 == ccx ? 0 : x + 1
+						var bi = y + 1 == ccy ? 0 : y + 1
+						var li = x - 1 < 0 ? ccx - 1 : x - 1
+						
+						var thisState = states[x][y]
+						var liveNeighbours = 0
+						liveNeighbours += states[li][ti] ? 1 : 0
+						liveNeighbours += states[x][ti] ? 1 : 0
+						liveNeighbours += states[ri][ti] ? 1 : 0
+						liveNeighbours += states[li][y] ? 1 : 0
+						liveNeighbours += states[ri][y] ? 1 : 0
+						liveNeighbours += states[li][bi] ? 1 : 0
+						liveNeighbours += states[x][bi] ? 1 : 0
+						liveNeighbours += states[ri][bi] ? 1 : 0
+						
+						var newState = false
+						
+						if (thisState) {
+							newState = liveNeighbours == 2 || liveNeighbours == 3 ? true : false
+						} else {
+							newState = liveNeighbours == 3 ? true : false
+						}
+						
+						nextGen[x][y] = newState
+					}
+				}
+				
+				return nextGen
+			}
+			
+			function animate() {
+				states = createNewGeneration()
+				d3.selectAll("rect")
+					.data(toGrid(states))
+				  .transition()
+					.attr("fill", fillFunction)
+					.attr("stroke", strokeFunction)
+					.delay(del)
+					.duration(0)
+			}
+			
+			setInterval("animate()", del)
+		</script>
+  </body>
+</html>
+

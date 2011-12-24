@@ -1,0 +1,4 @@
+* add sharethis
+* add google analytics
+* add disqus
+* fix broken tags (like C++)
