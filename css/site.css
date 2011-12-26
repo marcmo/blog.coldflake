@@ -391,53 +391,6 @@ ol#toc li h2 {
     padding:0;
 }
 
-article code {
-    font-size:0.8em;
-}
-
-table.sourceCode {
-    border:1px solid #efefef;
-}
-
-table.sourceCode,tr.sourceCode,td.lineNumbers,td.sourceCode,table.sourceCode pre {
-    vertical-align:baseline;
-    margin:0;
-    padding:0;
-}
-
-td.lineNumbers {
-    border-right:1px solid #AAA;
-    text-align:right;
-    color:#AAA;
-    padding:0 5px;
-}
-
-td.sourceCode {
-    padding-left:5px;
-}
-
-code.sourceCode span.kw {
-    color:#007020;
-    font-weight:700;
-}
-
-code.sourceCode span.dt {
-    color:#902000;
-}
-
-code.sourceCode span.co {
-    color:#60a0b0;
-    font-style:italic;
-}
-
-code.sourceCode span.ot {
-    color:#007020;
-}
-
-code.sourceCode span.fu {
-    color:#06287e;
-}
-
 header.home {
     z-index:90;
     position:fixed;
@@ -448,6 +401,21 @@ header.home {
     font-family:sans-serif;
     font-weight:700;
     width:200px;
+}
+
+@media all and (max-width:800px){  
+  /* div.container { */
+  /*   margin: 3.0em 0.5em; */
+  /* } */
+  
+  body {
+      min-width:220;
+      max-width:800;
+  }
+  header.home {
+    display:none;
+  }
+  
 }
 
 header h1 a {
@@ -485,43 +453,6 @@ span.language {
     color:#999;
     margin:-10px;
     padding:0.5em 1em;
-}
-
-#toTop {
-    display:none;
-    text-decoration:none;
-    position:fixed;
-    bottom:0;
-    right:75px;
-    overflow:hidden;
-    width:100px;
-    height:40px;
-    line-height:40px;
-    text-transform:lowercase;
-    background-color:#fbfbfb;
-    border-top:1px solid #efefef;
-    border-left:1px solid #efefef;
-    border-right:1px solid #efefef;
-    font-size:0.6em;
-    text-align:center;
-    font-family:"inconsolata", "Menlo", "monospace";
-}
-
-a#toTop {
-    color:#4D4D4D;
-}
-
-#toTopHover {
-    width:100px;
-    height:40px;
-}
-
-#toTopHover a {
-    color:#333;
-}
-
-#toTop:active,#toTop:focus {
-    outline:none;
 }
 
 h1 img,h2 img,h3 img,h4 img,h5 img,h6 img,li ul,li ol {
@@ -572,19 +503,6 @@ ol#toc,body.postlist ul {
 
 ol#toc li,body.postlist li {
     list-style-type:none;
-}
-
-code.sourceCode span.dv,code.sourceCode span.bn,code.sourceCode span.fl {
-    color:#40a070;
-}
-
-code.sourceCode span.ch,code.sourceCode span.st {
-    color:#4070a0;
-}
-
-code.sourceCode span.al,code.sourceCode span.er {
-    color:red;
-    font-weight:700;
 }
 
 body.default div.container,body.about div.container {
