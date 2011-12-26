@@ -100,19 +100,18 @@ main = hakyll $ do
             >>> applyTemplateCompiler "templates/default.html"
       
       
-makeTagList :: String
-            -> [Page String]
-            -> Compiler () (Page String)
-makeTagList tag posts =
-    constA posts
-        >>> pageListCompiler recentFirst "templates/postitem.html"
-        >>> arr (copyBodyToField "posts" . fromBody)
-        >>> arr (setField "title" $ "Posts tagged " ++ tag)
-        >>> arr (setField "description" $ "View all posts tagged with " ++ tag)
-        >>> arr (setField "keywords" $ "tags, " ++ tag)
-        >>> arr (setField "bodyclass" "postlist")
-        >>> applyTemplateCompiler "templates/posts.html"
-        >>> applyTemplateCompiler "templates/default.html"
+      makeTagList :: String -> [Page String] -> Compiler () (Page String)
+      makeTagList tag posts =
+        constA posts
+            >>> pageListCompiler recentFirst "templates/postitem.html"
+            >>> arr (copyBodyToField "posts" . fromBody)
+            >>> arr (setField "title" $ "Posts tagged " ++ tag)
+            >>> arr (setField "description" $ "View all posts tagged with " ++ tag)
+            >>> arr (setField "keywords" $ "tags, " ++ tag)
+            >>> arr (setField "bodyclass" "postlist")
+            >>> requireA "tags" (setFieldA "tags" (renderTagCloud'))
+            >>> applyTemplateCompiler "templates/posts.html"
+            >>> applyTemplateCompiler "templates/default.html"
 
 blogCompiler :: Compiler Resource (Page String)
 blogCompiler = pageCompilerWith defaultHakyllParserState opts
