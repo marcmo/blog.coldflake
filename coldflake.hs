@@ -19,6 +19,7 @@ main = hakyll $ do
     ["posts/*"] --> post 
     ["css/*"] --> css 
     ["index.html"] --> index
+    ["posts.html"] --> allposts
 
     -- Tags
     create "tags" $
@@ -37,16 +38,6 @@ main = hakyll $ do
             
     -- Read templates
     match "templates/*" $ compile templateCompiler
-
-    match "posts.html" $ route idRoute
-    create "posts.html" $ constA mempty
-        >>> arr (setField "title" "Posts")
-        >>> arr (setField "bodyclass" "postlist")
-        >>> setFieldPageList recentFirst
-                "templates/postitem.html" "posts" "posts/*"
-        >>> applyTemplateCompiler "templates/posts.html"
-        >>> applyTemplateCompiler "templates/default.html"
-            
 
     -- Render pages with relative url's
     forM_ ["about.md","colophon.md","404.md"] $ \p ->
@@ -92,10 +83,20 @@ main = hakyll $ do
             >>> arr (setField "description" description)
             >>> arr (setField "keywords" keywords)
             >>> arr (setField "bodyclass" "default")
-            >>> requireA "tags" (setFieldA "tags" (renderTagCloud'))
             >>> setFieldPageList (take 10 . recentFirst)
                     "templates/postitem.html" "posts" "posts/*"
             >>> applyTemplateCompiler "templates/index.html"
+            >>> applyTemplateCompiler "templates/default.html"
+
+      allposts = do
+        route idRoute
+        create "posts.html" $ constA mempty
+            >>> arr (setField "title" "Posts")
+            >>> arr (setField "bodyclass" "postlist")
+            >>> requireA "tags" (setFieldA "tags" (renderTagCloud'))
+            >>> setFieldPageList recentFirst
+                    "templates/postitem.html" "posts" "posts/*"
+            >>> applyTemplateCompiler "templates/posts.html"
             >>> applyTemplateCompiler "templates/default.html"
       
       
