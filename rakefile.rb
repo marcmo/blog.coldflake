@@ -107,5 +107,34 @@ define_syntax_highlighter = lambda do
   end
 end
 
+def needsUpdate?(g)
+  s = g.status
+  res = false
+  if (s.untracked.keys + s.changed.keys + s.added.keys + s.deleted.keys).length > 0
+    puts "update needed"
+    res = true
+  end
+  res
+end
+  
+desc 'deploy latest generated site to server'
+task :deploy => :build do
+  puts "deploying..."
+  require 'git'
+  g = Git.open ('.')
+  cd "deploy" do
+    dg = Git.open ('.')
+    rm_rf "_site"
+    cp_r "../_site","."
+    if needsUpdate? dg
+      sh "git add -u ."
+      sh "git add ."
+      sha = dg.object('HEAD').sha[0..6]
+      sh "git commit -m 'publish site for commit #{sha}'"
+      sh "git push coldflake"
+    end
+  end
+end
+
 Utils.optional_package(define_syntax_highlighter, nil)
 
