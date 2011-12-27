@@ -17,7 +17,7 @@ But this approach has some inherent drawbacks that might not be apparent at firs
 * you might have to deal with impenetrable xml (or other "binary") configuration files
 * you are stuck with the toolchain your IDE offers (and thus probably with your IDE)
 
-Of course in most cases you are not bound to stick with this **one-size-fits-all** approach. Often you can use a custom makefile to describe your build.
+Of course in most cases you are not bound to stick with this *one-size-fits-all* approach. Often you can use a custom makefile to describe your build.
 This is by far the more flexible solution but requires you to maintain makefiles... . But makefiles are so general it might turn out to be quite challenging for non-make-gurus to setup and maintain a well structured make-based build-system.
 
 About a year ago a [friend of mine](http://gizmomogwai.tumblr.com) was working on a quite large C++ project that was built using Visual Studio. Since he is mostly working Mac and Linux he wanted to port the build system to s.th. less platform-dependent. That turned out to be quite a challenge and he ended up with a collection of rakefiles that he could now use on every platform.
@@ -32,10 +32,10 @@ This was our wishlist for such a build system:
 * fast builds
 * tool for programmers
 
-We created an initial version of **[a build-system targeted towards C/C++ projects](http://marcmo.github.com/cxxproject/index.html)**. The result was quite usable but not very polished. It was based on rake and used ruby as a scripting language.
+We created an initial version of *[a build-system targeted towards C/C++ projects](http://marcmo.github.com/cxxproject/index.html)*. The result was quite usable but not very polished. It was based on rake and used ruby as a scripting language.
 ...and it worked quite well! I ended up doing all my C++ projects with this and even bigger projects where quite easy to set up.
 
-The basic idea is that you have **building blocks** that depend on each other. Take an executable as an example: in order to build an executable, you might need several libraries the executable links to.
+The basic idea is that you have *building blocks* that depend on each other. Take an executable as an example: in order to build an executable, you might need several libraries the executable links to.
 
 ![](/images/cxxproject/cxx_buildingblocks1.png)
 
