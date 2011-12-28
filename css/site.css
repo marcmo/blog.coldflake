@@ -221,7 +221,7 @@ html {
 }
 
 div.container {
-    margin:3.0em 11.5em;
+    margin:3.0em 12.5em;
 }
 
 #posts h1 {
@@ -351,7 +351,7 @@ section#page img {
     text-align:center;
 }
 
-div.about {
+div.tagcloud {
     padding:1.2em 0 0;
     z-index:80;
     position:fixed;
@@ -362,10 +362,10 @@ div.about {
     font-family:"helvetica",sans-serif;
     font-weight:600;
 }
-div.about a:hover {
+div.tagcloud a:hover {
     background-color:#FEE468;
 }
-div.about a {
+div.tagcloud a {
     color: #363636;
 }
 
@@ -419,7 +419,7 @@ header.home {
         min-width:220px;
         max-width:800px;
     }
-    header.home {
+    header.home, div.tagcloud {
         display:none;
     }
     #mobile{
@@ -440,7 +440,7 @@ header h1 {
     margin-bottom:0;
 }
 
-body.about figure {
+body.tagcloud figure {
     float:right;
 }
 
@@ -476,7 +476,7 @@ p,dl {
     margin:0 0 1.5em;
 }
 
-a:focus,a:hover,.loud,article h2 a,article h3 a,body.about div.container h1 a,body.about div.container h2 a,body.about div.container h3 a,body.notfound div.container h1 a {
+a:focus,a:hover,.loud,article h2 a,article h3 a,body.tagcloud div.container h1 a,body.tagcloud div.container h2 a,body.tagcloud div.container h3 a,body.notfound div.container h1 a {
     color:#000;
 }
 
@@ -518,7 +518,7 @@ ol#toc li,body.postlist li {
     list-style-type:none;
 }
 
-body.default div.container,body.about div.container {
+body.default div.container,body.tagcloud div.container {
     padding-top:5px;
 }
 
