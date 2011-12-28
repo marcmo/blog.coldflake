@@ -9,8 +9,8 @@ article code {
 }
 
 pre.terminal, code.sourceCode {
-    margin-bottom:2.0em;
     margin: 10px;
+    margin-bottom:2.0em;
     word-wrap: normal;
     vertical-align: baseline;
     overflow-x: auto;
