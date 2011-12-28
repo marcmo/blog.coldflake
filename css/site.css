@@ -411,6 +411,11 @@ header.home {
     background:url("/images/mountainflake.png") no-repeat;
 }
 
+@media all and (max-width:1000px) {  
+    article section.information {
+      width:100%;
+    }
+}
 @media all and (max-width:800px) {  
     div.container {
         margin: 0em 0.5em;
