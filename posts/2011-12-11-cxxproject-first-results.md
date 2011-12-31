@@ -8,7 +8,7 @@ tags: C++, ruby, rake, performance, dsl
 It has been a while since we started to implement [cxxproject](https://github.com/marcmo/cxxproject) (early 2010) but finally we managed to adopt is as the underlying buildsystem throughout the largest projects the company I work for.  
 I know, I know: It is foolish to build your own build system! But it's quite a learning experience and can have it's own [merits]. And as we now see can pay off!  
 
-<section class="information">
+<section class="information rightinfo">
 
 ### eclipse and CDT
 
