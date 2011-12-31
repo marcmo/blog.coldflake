@@ -118,7 +118,7 @@ def needsUpdate?(g)
 end
   
 desc 'deploy latest generated site to server'
-task :deploy => :build do
+task :deploy => :rebuild do
   puts "deploying..."
   require 'git'
   g = Git.open ('.')

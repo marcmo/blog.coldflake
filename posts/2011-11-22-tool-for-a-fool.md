@@ -9,6 +9,8 @@ So it should be no surprise that there will be incompatibilities in the source c
 
 What the program basically does is it will go through each source file and correct any wrongly spelled include path it finds. To do that it will need to know of all available header files. Of course the include path itself can always be relative so it's mandatory that an include line like `#include "testA.h"` will match against a header file `one/two/testA.h`. You get the idea. Kind of like matching up the suffixes of strings.
 
+## Trying Tries
+
 In order to store the available header files I need some kind of a map which allows me to quickly determine if an include path exists with a different case or not. A data-structure that seems suitable for this (described in Chris Okasaki's excellent [book about purely functional data structures](http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504)) is a Trie. Tries are based on ordered trees and can function as associative arrays where the keys are represented bye strings of tokens. Sounds kind of useful my scenario...yes it's also possible to use regular Hashmaps but what the heck...let's implement it with tries, just for the fun of it.
 All found paths will be stored in the trie in reverse order so that the first level of edges will match the headerfile names. Descending further into the tree each edge will represent a path element (directory).
 
@@ -45,6 +47,8 @@ member _ Empty = Nothing
 member [] (Node b _) = b
 member (x:xs) n@(Node b tr) = maybe Nothing (member xs) (M.lookup x tr)
 ~~~
+
+## Making the Case
 
 The question our trie has to answer is whether an include path is actually present (even if spelled incorrectly) or not. Is any form of the path `foo/bar.h` available? Maybe `FOO/BAR.h`? And if it is, what is the correct spelling?  
 So the `member` predicate has to return `True` even if we got the case wrong. Seems we need some kind of case-insensitive path representation:
@@ -100,6 +104,8 @@ cutIncludePath i
     | otherwise = error $ "no match for include path" ++ T.unpack i
 
 ~~~
+
+## Correct Version
 
 The meat of the algorithm to find the better version will finally make use of the assembled trie. If the path was found, we check if our path is correctly spelled and if not use the correct path that is stored in the node of the trie.
 

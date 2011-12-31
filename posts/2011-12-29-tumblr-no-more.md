@@ -25,7 +25,7 @@ So it was clear: I needed a solution for my requirements:
 * easy to deploy
 * *not* suitable for my grandma (well, what I mean is: a programmer tool)
 
-But then again the variety of approaches that all might be quite viable for a blog make it hard to settle on one technology. So over the course of several month I have been toying with [Rails], [Express] (an extremely pleasant web framework based on [nodejs]), [jekyll] and, last but not least, Jasper Van der Jeugt's wonderful [Hakyll] framework.  
+But then again the variety of approaches that all might be quite viable for a blog make it hard to settle on one technology. So over the course of several month I have been toying with dynamically generated sites using [Rails] or [Express] (an extremely pleasant web framework based on [nodejs]), and the static generators [jekyll] and Jasper Van der Jeugt's wonderful [Hakyll] framework. Since I didn't really have a need to generate any content dynamically and also had no data I'd put into a database the more lightweight approach of the later two was fully sufficient.  
 
 <section class="information leftinfo">
 
