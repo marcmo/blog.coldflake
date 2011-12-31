@@ -105,7 +105,7 @@ cutIncludePath i
 
 ~~~
 
-## Correct Version
+## Pick the Correct Version
 
 The meat of the algorithm to find the better version will finally make use of the assembled trie. If the path was found, we check if our path is correctly spelled and if not use the correct path that is stored in the node of the trie.
 

@@ -1,8 +1,7 @@
-bin
 .DS_Store
-_cache/
-*.hi
-*.o
-code/gtest/BuildDir
 tags
-_site
+_cache/
+_site/
+deploy/
+bin/
+

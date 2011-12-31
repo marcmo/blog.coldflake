@@ -79,62 +79,27 @@ task :code2html_intern => :create_file_tasks
 desc 'generate html from source code'
 task :code2html => :code2html_intern
 
-define_syntax_highlighter = lambda do
-  require 'nokogiri'
-  require 'albino'
-  require 'redcarpet'
-
-  def markdown(text)
-    options = [:hard_wrap, :filter_html, :autolink, :no_intraemphasis, :fenced_code, :gh_blockcode]
-    syntax_highlighter(Redcarpet.new(text, *options).to_html)
-  end
-
-  def syntax_highlighter(html)
-    doc = Nokogiri::HTML(html)
-    doc.search("//pre[@lang]").each do |pre|
-      pre.replace Albino.colorize(pre.text.rstrip, pre[:lang])
-    end
-    doc.to_s
-  end
-  desc 'test highlighting'
-  task :highlight, [:text] do |t,args|
-    input = args[:text]
-    puts Dir.pwd
-    File.open("posts/#{input}", "r") do |f|
-      t = f.read
-      puts markdown(t)
-    end
-  end
-end
-
-def needsUpdate?(g)
-  s = g.status
-  res = false
-  if (s.untracked.keys + s.changed.keys + s.added.keys + s.deleted.keys).length > 0
-    puts "update needed"
-    res = true
-  end
-  res
+def needsUpdate?
+  st = `git status --porcelain`
+  puts st
+  st.lines.count > 0
 end
   
 desc 'deploy latest generated site to server'
 task :deploy => :rebuild do
-  puts "deploying..."
-  require 'git'
-  g = Git.open ('.')
-  cd "deploy" do
-    dg = Git.open ('.')
+  sha = `git show -s --pretty=format:%T master`[0..6]
+  puts "deploying...#{sha}"
+  cd "deploy", :verbose=>false do
     rm_rf "_site"
     cp_r "../_site","."
-    if needsUpdate? dg
+    if needsUpdate?
+      msg = "publish site for commit #{sha}, see https://github.com/marcmo/blog.coldflake/commit/#{sha}"
+      puts "deployment needed: #{msg}"
       sh "git add -u ."
       sh "git add ."
-      sha = dg.object('HEAD').sha[0..6]
-      sh "git commit -m 'publish site for commit #{sha}'"
+      sh "git commit -m '#{msg}'"
       sh "git push coldflake"
     end
   end
 end
-
-Utils.optional_package(define_syntax_highlighter, nil)
 

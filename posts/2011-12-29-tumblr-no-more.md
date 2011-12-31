@@ -47,6 +47,8 @@ The actual usage of this infrastructure is a real joy: Hakyll comes with a small
 *Much* better then any preview mechanism where that requires you to edit your sources in a web form! And if you run into any difficulties, the [guy behind it](http://jaspervdj.be/) is very helpful and there is a [google group](https://groups.google.com/forum/#!forum/hakyll) where questions get answered.  
 Since deployment is now a task that has to be addressed individually, it was easy to set up a git-driven process that will publish the generated static content to my webserver. One quick `git push coldflake` now takes care that everything is safely sent to my [linode] server where a post-receive hook takes care of publishing the updated material. Having everything running like this makes blogging a joy again: I use the tools I like and don't have to fight the system anymore!
 
+The source-code for this blog can be found [here](https://github.com/marcmo/blog.coldflake).
+
 [Posterous]:https://posterous.com/
 [Wordpress]:http://wordpress.org/
 [Blogger]:http://blogger.com/
