@@ -7,6 +7,5 @@ bodyclass: about
 
 #$title$
 
-so so
+Nothing special here so far&#8230;
 
-[coldflake]: http://www.coldflake.com "my homepage"

@@ -226,8 +226,8 @@ div.container {
 
 #posts h1 {
     margin-top: 0.5em;
-    color: #909090;
-    font-weight: 600;
+    font-weight: 500;
+    color: #606060;
 }
 
 footer {
@@ -286,12 +286,27 @@ article dl {
     margin-left:1em;
 }
 
-article section.information {
+.leftinfo {
+    float:left;
+    margin:0 2em 1em 0;
+}
+.rightinfo {
+    float:right;
+    margin:0 0 1em 2em;
+}
+
+article section.information{
     background-color:#363636;
     color:#D4D4D4;
-    float:right;
-    width:18em;
-    margin:0 0 1em 2em;
+    width:17em;
+    font-size:0.9em;
+}
+article section.information hr {
+    width: 15em;
+    height: 2px;
+    background-color: #D4D4D4;
+    color: #D4D4D4;
+    border: 0;
 }
 
 article section.information p {
@@ -304,10 +319,11 @@ article section.information h3 {
     background-color:#363636;
     margin:0;
     padding:0.7em;
+    text-transform: uppercase;
+    font-size:1.3em;
 }
 article section.information h3 a {
     color:#D4D4D4;
-    font-style:italic;
 }
 
 article section.information h4 {
@@ -412,9 +428,8 @@ header.home {
 }
 
 @media all and (max-width:1000px) {  
-    article section.information {
-      width:100%;
-    }
+    article section.information { width:100%; }
+    article section.information hr { width: 90%; }
 }
 @media all and (max-width:800px) {  
     div.container {
@@ -511,8 +526,8 @@ footer p a,article p.meta a {
 
 article h1,section#page h1 {
     margin:0 0 1em;
-    font-weight: 600;
-    color: #909090;
+    font-weight: 500;
+    color: #606060;
 }
 
 ol#toc,body.postlist ul {
