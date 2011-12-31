@@ -103,3 +103,22 @@ task :deploy => :rebuild do
   end
 end
 
+desc 'create new post'
+task :newPost, [:post_name] do |t,args|
+  name = args[:post_name]
+  t = Time.now
+  postName = t.strftime("%Y-%m-%d-#{name}.md")
+  post = File.join("posts",postName)
+  if File.exists?(post)
+    puts "post with the name #{postName} already exists!"
+  else
+    puts "creating......post with the name #{postName}"
+    p = File.new(post, "w")
+    p.puts "---"
+    p.puts "title: #{name.split('-').each{|word| word.capitalize!}.join(' ')}"
+    p.puts "description:"
+    p.puts "tags:"
+    p.puts "---"
+  end
+end
+
