@@ -18,6 +18,9 @@ pre.terminal, code.sourceCode {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+pre.terminal span#prompt {
+    color: #C5C525;
+}
 
 code.sourceCode {
     display:block;
