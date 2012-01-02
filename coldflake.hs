@@ -49,7 +49,7 @@ main = hakyll $ do
 
   where
       renderTagCloud' :: Compiler (Tags String) String
-      renderTagCloud' = renderTagCloud tagIdentifier 50 250 
+      renderTagCloud' = renderTagList tagIdentifier
 
       tagIdentifier :: String -> Identifier (Page String)
       tagIdentifier = fromCapture "tags/*"
