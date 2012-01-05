@@ -1,11 +1,18 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, Arrows #-}
 module Main where
 
 import Prelude hiding (id)
-import Control.Arrow ((>>>), arr)
 import Control.Monad (forM_)
 import Data.Monoid (mempty)
 import Text.Pandoc (WriterOptions(..))
+import Data.List(intercalate,intersperse)
+import Text.Blaze.Renderer.String (renderHtml)
+import qualified Text.Blaze.Html5 as H
+import Text.Blaze ((!), toHtml, toValue)
+import qualified Text.Blaze.Html5.Attributes as A
+import Control.Category (id)
+import Control.Arrow ((>>>), arr, (&&&), (***), (<<^), returnA)
+import Data.Maybe (catMaybes, fromMaybe)
 
 import Hakyll
 
@@ -44,12 +51,13 @@ main = hakyll $ do
         match p $ do
             route $ setExtension ".html"
             compile $ blogCompiler
+                >>> arr (setField "tagcloud" "")
                 >>> applyTemplateCompiler "templates/default.html"
                 >>> relativizeUrlsCompiler
 
   where
       renderTagCloud' :: Compiler (Tags String) String
-      renderTagCloud' = renderTagList tagIdentifier
+      renderTagCloud' = renderMyTags tagIdentifier
 
       tagIdentifier :: String -> Identifier (Page String)
       tagIdentifier = fromCapture "tags/*"
@@ -58,23 +66,28 @@ main = hakyll $ do
       keywords = "marcmo, haskell, hakyll, programming, ruby, rake, bash, linux"
 
       -- Useful combinator here
-      xs --> f = mapM_ (\p -> match p $ f) xs
+      xs --> f = mapM_ (`match` f) xs
 
       -- Completely static
       copy = route idRoute >> compile copyFileCompiler
 
       -- CSS directories
-      css = route (setExtension "css") >> compile compressCssCompiler
+      css = route (setExtension "css") >> compile sass
 
+      sass :: Compiler Resource String
+      sass = getResourceString >>> unixFilter "sass" ["-s","--scss"]
+                              >>> arr compressCss
+      
       post = do
         route   $ setExtension ".html"
         compile $ blogCompiler
-          >>> arr (renderDateField "date" "%Y-%m-%d" "Date unknown")
-          >>> arr (setField "bodyclass" "post")
-          >>> renderTagsField "prettytags" (fromCapture "tags/*")
-          >>> applyTemplateCompiler "templates/post.html"
-          >>> applyTemplateCompiler "templates/default.html"
-          >>> relativizeUrlsCompiler
+            >>> arr (renderDateField "date" "%Y-%m-%d" "Date unknown")
+            >>> arr (setField "bodyclass" "post")
+            >>> arr (setField "tagcloud" "")
+            >>> renderTagsField "prettytags" (fromCapture "tags/*")
+            >>> applyTemplateCompiler "templates/post.html"
+            >>> applyTemplateCompiler "templates/default.html"
+            >>> relativizeUrlsCompiler
 
       index = do
         route idRoute
@@ -83,6 +96,7 @@ main = hakyll $ do
             >>> arr (setField "description" description)
             >>> arr (setField "keywords" keywords)
             >>> arr (setField "bodyclass" "default")
+            >>> arr (setField "tagcloud" "")
             >>> setFieldPageList (take 10 . recentFirst)
                     "templates/postitem.html" "posts" "posts/*"
             >>> applyTemplateCompiler "templates/index.html"
@@ -93,7 +107,7 @@ main = hakyll $ do
         create "posts.html" $ constA mempty
             >>> arr (setField "title" "Posts")
             >>> arr (setField "bodyclass" "postlist")
-            >>> requireA "tags" (setFieldA "tags" (renderTagCloud'))
+            >>> arr (setField "tagcloud" "")
             >>> setFieldPageList recentFirst
                     "templates/postitem.html" "posts" "posts/*"
             >>> applyTemplateCompiler "templates/posts.html"
@@ -109,7 +123,7 @@ main = hakyll $ do
             >>> arr (setField "description" $ "View all posts tagged with " ++ tag)
             >>> arr (setField "keywords" $ "tags, " ++ tag)
             >>> arr (setField "bodyclass" "postlist")
-            >>> requireA "tags" (setFieldA "tags" (renderTagCloud'))
+            >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud')
             >>> applyTemplateCompiler "templates/posts.html"
             >>> applyTemplateCompiler "templates/default.html"
 
@@ -128,4 +142,15 @@ feedConfiguration = FeedConfiguration
     , feedAuthorName = "Oliver Mueller"
     , feedRoot = "http://blog.coldflake.com"
     }
+
+renderMyTags :: (String -> Identifier (Page a)) -> Compiler (Tags a) String
+renderMyTags makeUrl = proc (Tags tags) -> do
+    tags' <- mapCompiler ((id &&& (getRouteFor <<^ makeUrl)) *** arr length)
+                -< tags
+    returnA -< renderHtml $ mapM_ toHtml (intersperse (toHtml (" " :: String)) (map makeItem tags'))
+
+makeItem :: ((String, Maybe FilePath), Int) -> H.Html
+makeItem ((tag, maybeUrl), count) =
+      H.a ! A.href (toValue url) $ toHtml tag
+        where url = toUrl $ fromMaybe "/" maybeUrl
 
