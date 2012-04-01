@@ -14,7 +14,7 @@ What the program basically does is it will go through each source file and corre
 In order to store the available header files I need some kind of a map which allows me to quickly determine if an include path exists with a different case or not. A data-structure that seems suitable for this (described in Chris Okasaki's excellent [book about purely functional data structures](http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504)) is a Trie. Tries are based on ordered trees and can function as associative arrays where the keys are represented bye strings of tokens. Sounds kind of useful my scenario...yes it's also possible to use regular Hashmaps but what the heck...let's implement it with tries, just for the fun of it.
 All found paths will be stored in the trie in reverse order so that the first level of edges will match the headerfile names. Descending further into the tree each edge will represent a path element (directory).
 
-![](http://www.coldflake.com/blog/images/toolforfool/trie_c.png)
+![](/images/toolforfool/trie_c.png)
 
 This example represents the entries `["a.h","a/a.h","s/a.h","b.h","u/b.h","c.h","u/c.h"]` where we store the correctly spelled path along the edges to a node inside the node.  
 This is the datatype definition for our trie, where we store the path in the nodes if it is valid.  
