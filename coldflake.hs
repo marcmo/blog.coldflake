@@ -6,9 +6,10 @@ import Control.Monad (forM_)
 import Data.Monoid (mempty)
 import Text.Pandoc (WriterOptions(..))
 import Data.List(intercalate,intersperse)
-import Text.Blaze.Renderer.String (renderHtml)
 import qualified Text.Blaze.Html5 as H
-import Text.Blaze ((!), toHtml, toValue)
+import Text.Blaze ((!), toValue)
+import Text.Blaze.Html (toHtml)
+import Text.Blaze.Html.Renderer.String(renderHtml)
 import qualified Text.Blaze.Html5.Attributes as A
 import Control.Category (id)
 import Control.Arrow ((>>>), arr, (&&&), (***), (<<^), returnA)

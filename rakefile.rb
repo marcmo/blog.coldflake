@@ -15,13 +15,30 @@ def runHastache post
   sh "runghc hastacheProcessing.hs #{post} | pbcopy"
 end
 
+# Cross-platform way of finding an executable in the $PATH.
+#
+#   which('ruby') #=> /usr/bin/ruby
+def which(cmd)
+  exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+  ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+    exts.each { |ext|
+      exe = "#{path}/#{cmd}#{ext}"
+      return exe if File.executable? exe
+    }
+  end
+  return nil
+end
+
+task :checkSass do
+  raise "no sass compiler found!" unless which('sass')
+end
 desc 'compile a post with hastache'
 task :hastache, [:post] do |t,args|
   runHastache args[:post]
 end
 
 desc 'build site'
-file haky => FileList.new("**/*.hs") << out do
+file haky => FileList.new("**/*.hs") << out << :checkSass do
   begin
     sh "ghc --make #{input} -outputdir bin -o #{haky}"
   rescue Exception => e
