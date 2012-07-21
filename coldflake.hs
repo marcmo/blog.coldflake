@@ -34,11 +34,10 @@ main = hakyll $ do
       requireAll "posts/*" (\_ ps -> readTags ps :: Tags String)
 
     -- Add a tag list compiler for every tag
-    match "tags/*" $ route $
-      gsubRoute "C\\+\\+" (const "Cpptag") `composeRoutes` setExtension "html"
+    match "tags/*" $ route $ setExtension "html"
     metaCompile $ require_ "tags"
       >>> arr tagsMap
-      >>> arr (map (\(t, p) -> (tagIdentifier t, makeTagList t p)))
+      >>> arr (map (\(t, p) -> (tagIdentifier t, makeTagListCompiler t p)))
         
     -- Render RSS feed
     match "rss.xml" $ route idRoute
@@ -58,13 +57,19 @@ main = hakyll $ do
 
   where
       renderTagCloud' :: Compiler (Tags String) String
-      renderTagCloud' = renderMyTags tagIdentifier
+      renderTagCloud' = renderMyTags tagIdentifierEscaped
 
       tagIdentifier :: String -> Identifier (Page String)
       tagIdentifier = fromCapture "tags/*"
+      tagIdentifierEscaped = fromCapture "tags/*" . escapeStr
     
       description = "Exploring and learning in the dazzling array of fascintating software technologies"
       keywords = "marcmo, haskell, hakyll, programming, ruby, rake, bash, linux"
+
+      escape x 
+            | x == '+' = "%2B"
+            | otherwise = x:[]
+      escapeStr = concatMap escape
 
       -- Useful combinator here
       xs --> f = mapM_ (`match` f) xs
@@ -85,7 +90,8 @@ main = hakyll $ do
             >>> arr (renderDateField "date" "%Y-%m-%d" "Date unknown")
             >>> arr (setField "bodyclass" "post")
             >>> arr (setField "tagcloud" "")
-            >>> renderTagsField "prettytags" (fromCapture "tags/*")
+            >>> arr (changeField "url" escapeStr)
+            >>> renderTagsField "prettytags" tagIdentifierEscaped
             >>> applyTemplateCompiler "templates/post.html"
             >>> applyTemplateCompiler "templates/default.html"
             >>> relativizeUrlsCompiler
@@ -115,8 +121,8 @@ main = hakyll $ do
             >>> applyTemplateCompiler "templates/default.html"
       
       
-      makeTagList :: String -> [Page String] -> Compiler () (Page String)
-      makeTagList tag posts =
+      makeTagListCompiler :: String -> [Page String] -> Compiler () (Page String)
+      makeTagListCompiler tag posts =
         constA posts
             >>> pageListCompiler recentFirst "templates/postitem.html"
             >>> arr (copyBodyToField "posts" . fromBody)

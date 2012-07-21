@@ -112,7 +112,7 @@ p img {
 }
 
 a {
-  color: #88b834;
+  color: #82BD10;
   text-decoration: none;
   &:hover {
     text-decoration: none;
@@ -247,6 +247,9 @@ footer {
 
 article {
   margin-bottom: 1em;
+  p {
+    font-size: 0.96em;
+  }
   p.meta {
     font-size: 0.9em;
     font-style: italic;

@@ -15,22 +15,12 @@ def runHastache post
   sh "runghc hastacheProcessing.hs #{post} | pbcopy"
 end
 
-# Cross-platform way of finding an executable in the $PATH.
-#
-#   which('ruby') #=> /usr/bin/ruby
-def which(cmd)
-  exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
-  ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-    exts.each { |ext|
-      exe = "#{path}/#{cmd}#{ext}"
-      return exe if File.executable? exe
-    }
-  end
-  return nil
-end
-
 task :checkSass do
-  raise "no sass compiler found!" unless which('sass')
+  found = false
+  available_gems = Gem::Specification.find_all do |gem|
+    found = found || (gem.name == "sass")
+  end
+  raise "no sass compiler found!" unless found
 end
 desc 'compile a post with hastache'
 task :hastache, [:post] do |t,args|
@@ -120,9 +110,18 @@ task :deploy => :rebuild do
   end
 end
 
+
+def escape(n)
+  escapes = {
+    "+" => "Plus"
+  }
+  n.split("").reduce("") do |acc,x|
+    acc << (escapes[x] ? escapes[x] : x)
+  end
+end
 desc 'create new post'
 task :newPost, [:post_name] do |t,args|
-  name = args[:post_name]
+  name = escape(args[:post_name])
   t = Time.now
   postName = t.strftime("%Y-%m-%d-#{name}.md")
   post = File.join("posts",postName)
