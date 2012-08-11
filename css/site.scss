@@ -285,6 +285,11 @@ article section {
     color: #d4d4d4;
     width: 17em;
     font-size: 0.9em;
+    a {
+      &:focus, &:hover {
+        color: #d4d4d4;
+      }
+    }
     hr {
       width: 15em;
       height: 2px;
