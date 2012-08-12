@@ -115,3 +115,4 @@ Cling understands some meta-commands that are not valid C++. Those commands are 
 
 I'd say cling is definitely worth the try. It's not perfect but can be a real timesaver when fooling around with C or C++ code. Especially for little bits and pieces you want to try out while working on a C/C++ codebase, it's much less distracting to fire up a cling interpreter than to setup an example project.
 
+<citation>Photo: NASA / Dryden Flight Research Center</citation>
