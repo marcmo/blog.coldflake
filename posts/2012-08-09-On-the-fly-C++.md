@@ -37,7 +37,7 @@ $ cling  -Wc++11-extensions -std=c++11
 Ready for a test run:
 
 <pre class="terminal">
-<span id="prompt">[cling]</span>$ #include <iostream>
+<span id="prompt">[cling]</span>$ #include &lt;iostream&gt;
 <span id="prompt">[cling]</span>$ using namespace std;
 <span id="prompt">[cling]</span>$ int a[] = {1,2,3};
 <span id="prompt">[cling]</span>$ for (int& x: a){ x += 10; }
@@ -79,7 +79,7 @@ Uuh...header file not found...at least the error message is nice.
 Ok...that works nicely. What about using some C++11 features? Let's try a lambda:
 
 <pre class="terminal">
-<span id="prompt">[cling]</span>$ #include <iostream>
+<span id="prompt">[cling]</span>$ #include &lt;iostream&gt;
 <span id="prompt">[cling]</span>$ using namespace std;
 <span id="prompt">[cling]</span>$ auto func = [] () { cout << "Hello world" << endl; };
 <span id="prompt">[cling]</span>$ func
@@ -93,7 +93,7 @@ It's even possible to load and access system libraries using the `.L` load instr
 
 <pre class="terminal">
 <span id="prompt">[cling]</span>$ .L libpthread
-<span id="prompt">[cling]</span>$ #include <pthread.h>
+<span id="prompt">[cling]</span>$ #include &lt;pthread.h&gt;
 <span id="prompt">[cling]</span>$ pthread_self()
 (pthread_t const) 0x7fff7da43180
 </pre>
@@ -114,5 +114,14 @@ Cling understands some meta-commands that are not valid C++. Those commands are 
 ## Worth a try
 
 I'd say cling is definitely worth the try. It's not perfect but can be a real timesaver when fooling around with C or C++ code. Especially for little bits and pieces you want to try out while working on a C/C++ codebase, it's much less distracting to fire up a cling interpreter than to setup an example project.
+
+## Further Information
+
+Some interesting links people provided on [hacker news](http://news.ycombinator.com/item?id=4373334)
+
+* [kind of an interactive C compiler](https://docs.google.com/viewer?url=http%3A%2F%2Fwww.bitsavers.org%2Fpdf%2Fsymbolics%2Fsoftware%2Fgenera_8%2FUser_s_Guide_to_Symbolics_C.pdf)
+* [TCC, the *tiny* C compiler](http://bellard.org/tcc/)
+* [google tech talk about cling](http://www.youtube.com/watch?v=f9Xfh8pv3Fs)
+* [for fooling around: coderunner](http://krillapps.com/coderunner/)
 
 <citation>Photo: NASA / Dryden Flight Research Center</citation>
