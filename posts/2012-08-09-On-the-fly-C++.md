@@ -42,7 +42,7 @@ Ready for a test run:
 <span id="prompt">[cling]</span>$ int a[] = {1,2,3};
 <span id="prompt">[cling]</span>$ for (int& x: a){ x += 10; }
 <span id="prompt">[cling]</span>$ for (int& x: a){ cout << x << ","; }
-11,12,13
+11,12,13,
 </pre>
 
 Doing calculations in C can yield some surprising results if the types are not correct. Checking small stuff in an interpreter can really help!  
@@ -114,6 +114,27 @@ Cling understands some meta-commands that are not valid C++. Those commands are 
 ## Worth a try
 
 I'd say cling is definitely worth the try. It's not perfect but can be a real timesaver when fooling around with C or C++ code. Especially for little bits and pieces you want to try out while working on a C/C++ codebase, it's much less distracting to fire up a cling interpreter than to setup an example project.
+
+## Limitations
+
+While using cling I discovered several things that were not perfect yet:
+
+* templates seem not to be supported
+* the **auto** keyword does not seem to be implicit on declarations like: `i=5;`
+* sometimes cling will segfault on small syntax errors and all current environment is lost
+
+<pre class="terminal">
+<span id="prompt">[cling]</span>$ std:string s("hi");
+input_line_7:2:6: <span style="color: #cb4b15;">error:</span> unknown type name 'string'; did you mean 'std::string'?
+ std:string s("hi");
+     ^~~~~~
+     <span style="color: #637204;">std::string</span>
+/usr/include/c++/4.2.1/bits/stringfwd.h:59:33: note: 'std::string' declared here
+  typedef basic_string<char>    string;
+                                ^
+Segmentation fault: 11
+</pre>
+
 
 ## Further Information
 
