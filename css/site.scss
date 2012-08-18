@@ -14,13 +14,13 @@ body {
   line-height: 1.5;
   font-size: 1.2em;
   color: #32271b;
-  font-family: "museo-sans-1", "museo-sans-2", sans-serif;
   word-spacing: 0.15em;
   min-width: 960px;
   max-width: 1140px;
   position: relative;
   margin: 0 auto;
   padding: 0;
+  font-family: "ff-tisa-web-pro", "museo-sans-1", "museo-sans-2", serif;
 }
 
 table {
@@ -215,7 +215,7 @@ header, footer {
 }
 
 html {
-  background-color: white;
+  background-color: #F7F7F7;
 }
 
 div.container {
@@ -247,8 +247,10 @@ footer {
 
 article {
   margin-bottom: 1em;
+  color: #404040;
   p {
-    font-size: 0.96em;
+    font-size: 1.15em;
+    font-family: "ff-tisa-web-pro", serif;
     citation {
       font-size: 0.4em;
       color: grey; 
@@ -302,6 +304,8 @@ article section {
       border: 0; }
     p {
       margin: 0;
+      font-size: 1.0em;
+      font-family: "facitweb", "museo-sans-1", "museo-sans-2", sans-serif;
       padding: 1em; }
     h3 {
       color: #d4d4d4;
@@ -548,8 +552,8 @@ article {
   }
   h1 {
     margin: 0 0 1em;
-    font-weight: 500;
-    color: #606060;
+    font-weight: 600;
+    color: #303040;
   }
 }
 
