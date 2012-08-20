@@ -9,7 +9,7 @@ tags: C++, llvm, clang
 I can't recall how many times I had to write a basic small C or C++ program just to play around with an idea, the syntax of C++11 or anything similar. Very often indeed. Even though a good editor makes this very easy, it's kind of a burden to have to create a project directory, a source file, spell out the same old includes and the main function before you actually can start the task you where about to try.    
 Then you compile and link, probably missing some libraries the first time until you __finally__ get to take it on a first test run.  
 
-<section class="information rightinfo">
+<div class="information rightinfo">
 
 ### Building Cling
 

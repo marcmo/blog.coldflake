@@ -7,7 +7,7 @@ tags: blogging, git
 
 This year I finally got around to start writing about some of the my technical projects and programming related tasks. And starting out fresh the quickest way was to use some ready-to-go blogging framework. The choices for this are actually pretty amazing...ranging from microblogging services like [Posterous] and [Tumblr] to full fledged blogging frameworks like [Wordpress] and [Blogger]. Of those services Tumblr seemed like an especially good fit for my needs.
 
-<section class="information rightinfo">
+<div class="information rightinfo">
 
 ### Why Tumblr
 
@@ -15,7 +15,8 @@ This year I finally got around to start writing about some of the my technical p
 * You can use custom CSS elements
 * Source code formatting was possible using [pygments]
 * And very important: It allows you to use your own domain so when moving away from Tumblr you can keep the same URL for your blog
-</section>
+
+</div>
 
 Despite all the merits such an easy to-go solution offers, I have to admit I always felt a little embarrassed as a programmer to use the same tool my grandma probably would (and *could*). This might have been bearable &#8230; but the thing that kind of tipped me over the edge was the constant annoyance with the html content that I would end up with Tumblr. Yes, it is possible to use custom html or even a mixture of html and [markdown], but unfortunately the html that you put into Tumblr is *not* the html that will eventually end up in your blog. That was very unfortunate since I initially tried to use [pandoc] formated source-code fragments. In Tumblr that would not work. Even though I found a practical solution using [pygments], not having full control over the output eventually became a no-go for me (ever tried to render graphs using javascript in Tumblr?).  
 So it was clear: I needed a solution for my requirements:
@@ -27,7 +28,7 @@ So it was clear: I needed a solution for my requirements:
 
 But then again the variety of approaches that all might be quite viable for a blog make it hard to settle on one technology. So over the course of several month I have been toying with dynamically generated sites using [Rails] or [Express] (an extremely pleasant web framework based on [nodejs]), and the static generators [jekyll] and Jasper Van der Jeugt's wonderful [Hakyll] framework. Since I didn't really have a need to generate any content dynamically and also had no data I'd put into a database the more lightweight approach of the later two was fully sufficient.  
 
-<section class="information leftinfo">
+<div class="information leftinfo">
 
 ### Why Hakyll
 
