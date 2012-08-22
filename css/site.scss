@@ -45,19 +45,9 @@ table, td, th {
 }
 
 blockquote {
-  &:before, &:after {
-    content: "";
-  }
-}
-
-q {
-  &:before, &:after {
-    content: "";
-  }
-}
-
-blockquote, q {
-  quotes: "" "";
+  color: grey;
+  font-size: 0.9em;
+  border-left: 3px solid #ccc;
 }
 
 a img {

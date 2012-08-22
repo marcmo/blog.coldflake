@@ -10,7 +10,7 @@ Usually I'd resort back to the trusty [parsec](http://legacy.cs.uu.nl/daan/parse
 This is the specification taken from the [wikipedia page](http://en.wikipedia.org/wiki/Brainfuck):
 
 > Character	Meaning
-
+>
 > `>`	increment the data pointer (to point to the next cell to the right).  
 > `<`	decrement the data pointer (to point to the next cell to the left).  
 > `+`	increment (increase by one) the byte at the data pointer.  
