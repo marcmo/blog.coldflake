@@ -415,10 +415,12 @@ header.home {
 }
 
 @media all and (max-width:1000px) {
-  article section.information {
-    width: 100%;
-    hr {
-      width: 90%;
+  div {
+    &.information {
+      width: 100%;
+      hr {
+        width: 90%;
+      }
     }
   }
 }
