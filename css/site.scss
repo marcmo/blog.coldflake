@@ -2,6 +2,7 @@ $green-link: #82BD10;
 $stone-grey: #606060;
 $cloud-black: #363636;
 $elephant-grey: #303240;
+$abstract-grey: #9b9b9b;
 
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
   border: 0;
@@ -35,11 +36,6 @@ table {
   width: 100%;
 }
 
-caption, th, td {
-  text-align: left;
-  font-weight: 400;
-}
-
 table, td, th {
   vertical-align: middle;
 }
@@ -60,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2.2em;
+  font-size: 2.5em;
   line-height: 1;
   margin-bottom: 0.5em;
 }
@@ -122,16 +118,6 @@ sup, sub {
   line-height: 0;
 }
 
-abbr, acronym {
-  border-bottom: 1px dotted #666666;
-}
-
-address {
-  font-style: italic;
-  margin: 0 0 1.5em;
-  padding: 0;
-}
-
 ul, ol {
   padding-left: 3.333em;
   margin: 0 1.5em 1.5em 0;
@@ -145,20 +131,8 @@ ol {
   list-style-type: decimal;
 }
 
-dd {
-  margin-left: 1.5em;
-}
-
-thead th {
-  background: #c3d9ff;
-}
-
 th, td, caption {
   padding: 4px 10px 4px 5px;
-}
-
-tr.even td {
-  background: #e5ecf9;
 }
 
 caption {
@@ -185,28 +159,19 @@ caption {
   background: white;
 }
 
-.first {
-  margin-left: 0;
-  padding-left: 0;
-}
-
 .last {
   margin-right: 0;
   padding-right: 0;
 }
 
-.top {
-  margin-top: 0;
-  padding-top: 0;
-}
-
-.bottom {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
 header, footer {
   display: block;
+}
+
+#abstract {
+  font-size: 1.35em;
+  margin-bottom: 35px;
+  color: $abstract-grey;
 }
 
 html {
@@ -244,6 +209,15 @@ article {
   margin-bottom: 1em;
   color: #404040;
   font-size: 1.15em;
+  h1 {
+    margin: 0 0 25px;
+    font-weight: 600;
+    color: $elephant-grey;
+  }
+  h2 a, h3 a {
+    color: $elephant-grey;
+    font-weight: 600;
+  }
   p {
     citation {
       font-size: 0.4em;
@@ -255,21 +229,12 @@ article {
     font-style: italic;
     color: #d4d4d4;
     margin: 1em 0 0; }
-  sup a {
-    color: black;
-    border-bottom: none;
-    font-size: 0.8em;
-    margin: 0;
-    padding: 0;
-    &:hover {
-      background-color: white;
-      color: black;
-      border-bottom: none; } }
+  p.meta a {
+    color: #555555;
+  }
   figure {
-    /* float:right; */
     margin: 0 2em 1em; }
-  dl {
-    margin-left: 1em; } }
+}
 
 .leftinfo {
   float: left;
@@ -286,6 +251,7 @@ div {
     width: 17em;
     font-size: 0.9em;
     font-family: "facitweb", "museo-sans-1", "museo-sans-2", sans-serif;
+    padding: 1em;
     a {
       &:focus, &:hover {
         color: #d4d4d4;
@@ -299,7 +265,7 @@ div {
       border: 0; }
     p {
       margin: 0;
-      padding: 1em; }
+    }
     h3 {
       color: #d4d4d4;
       background-color: $cloud-black;
@@ -308,35 +274,21 @@ div {
       text-transform: uppercase;
       font-size: 1.3em;
       a {
-        color: #d4d4d4; } }
+        color: #d4d4d4;
+      }
+    }
     h4 {
       margin: 0;
-      padding: 0 0 0 0.6em; }
+      padding: 0 0 0 0.6em;
+    }
     pre {
       border: none;
       background-color: none;
       margin: 0 1em 1em;
-      padding: 0 1em; } }
-  &#comment {
-    color: #4d4d4d;
-    border-top: 1px solid #aaaaaa;
-    font-style: italic;
-    font-size: 0.9em;
-    padding-top: 1em; } }
-
-.footnotes hr {
-  display: block;
-  position: relative;
-  width: 100%;
-  clear: both;
-  border: none;
-  border-top: 1px solid #aaaaaa;
-  border-bottom: 1px solid white;
-  font-size: 1px;
-  line-height: 0;
-  overflow: visible;
-  margin: 16px auto;
-  padding: 0; }
+      padding: 0 1em;
+    }
+  }
+}
 
 section#page img {
   float: left;
@@ -449,11 +401,14 @@ header h1 {
   a {
     height: 135px;
     display: block;
-    line-height: 80px; }
-  margin-bottom: 0; }
+    line-height: 80px;
+  }
+  margin-bottom: 0.5em;
+}
 
 body {
   &.postlist li {
+    list-style-type: none;
     h2 {
       font-size: 1.2em;
       text-align: left;
@@ -463,19 +418,13 @@ body {
       font-size: 1.0em;
     }
   }
+  &.default div.container {
+    padding-top: 5px;
+  }
+  &.postlist div.container, &.notfound div.container {
+    padding-top: 0.1em;
+  }
 }
-
-span.language {
-  border: 1px solid #efefef;
-  border-top: none;
-  border-right: none;
-  float: right;
-  text-align: right;
-  font-size: 0.4em;
-  background-color: white;
-  color: #999999;
-  margin: -10px;
-  padding: 0.5em 1em; }
 
 h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {
   margin: 0;
@@ -501,13 +450,6 @@ a {
   color: black;
 }
 
-article {
-  h2 a, h3 a {
-    color: $elephant-grey;
-    font-weight: 600;
-  }
-}
-
 body {
   &.notfound div.container h1 a {
     color: black;
@@ -520,10 +462,6 @@ strong, dfn, dl dt, th {
 
 em, dfn, tfoot, .caption, article blockquote {
   font-style: italic;
-}
-
-del, .quiet {
-  color: #666666;
 }
 
 dt a {
@@ -541,17 +479,6 @@ footer p a {
   color: #555555;
 }
 
-article {
-  p.meta a {
-    color: #555555;
-  }
-  h1 {
-    margin: 0 0 1em;
-    font-weight: 600;
-    color: $elephant-grey;
-  }
-}
-
 section#page h1 {
   margin: 0 0 1em;
   font-weight: 500;
@@ -566,20 +493,4 @@ ol#toc li {
   list-style-type: none;
 }
 
-body {
-  &.postlist li {
-    list-style-type: none;
-  }
-  &.default div.container {
-    padding-top: 5px;
-  }
-  &.postlist div.container, &.notfound div.container {
-    padding-top: 0.1em;
-  }
-}
-
-.st_sharethis_custom {
-  background: url("/images/sharethis_16_bw.png") no-repeat scroll left top transparent;
-  padding: 0px 16px 0 0;
-}
 
