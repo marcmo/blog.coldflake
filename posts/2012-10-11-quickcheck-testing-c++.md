@@ -85,7 +85,7 @@ And here is one that simulates a battery that is getting charged with a pause in
 
 ### Linking Issues
 
-It can be a little tricky to have ghc link all the code, especially with C++ since the C++ runtime is also needed (don't forget the lstdc++ and lc++ as linker flags for ghc). What works best for me is to build static libraries for the C++ code I want to test, for the C wrappers and test drivers, and tell ghc to link those.
+It can be a little tricky to have ghc link all the code, especially with C++ since the C++ runtime is also needed (don't forget the _-lstdc++_ and _-lc++_ as linker flags for ghc). What works best for me is to build static libraries for the C++ code I want to test, for the C wrappers and test drivers, and tell ghc to link those.
 
 </div>
 

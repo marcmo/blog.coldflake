@@ -14,6 +14,7 @@ Then you compile and link, probably missing some libraries the first time until 
 ### Building Cling
 
 You gotta checkout [llvm and clang](http://clang.llvm.org/get_started.html) from svn (do **not** use the git mirror! The makefile for cling uses the svn information!). Next checkout cling from svn into the tools folder and apply all the patches in the cling/patches directory and start your *configure - make - make install* cycle the same way you'd do for llvm and clang alone. Don't forget to include the  --enable-targets=host when running configure.
+
 </div>
 
 So why put up with all of this when the next ruby or python or haskell interpreter is just a couple of keystrokes away: type `irb` or `ghci` and of you go. No includes, no compile, no linker. Just get to the meat of your idea and start experimenting. Still, would be nice to have this for C++ as well.  

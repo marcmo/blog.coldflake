@@ -37,7 +37,7 @@ But then again the variety of approaches that all might be quite viable for a bl
 * power of a real programming language to extend it
 * definitely a programmer tool!
 
-</section>
+</div>
 
 Hakyll has a special appeal to me since it is kept pretty minimal and it is written in [my favorite programming language](http://www.haskell.org/). It will give you all you need with very little configuration but also enables you to become arbitrarily sophisticated by writing your own custom pieces of functionality. Just the right mixture of power and ease! So for now I'm really happy with this solution. I have set up an easy deployment strategy, I'm in full charge of my [nginx] web server, all javascript libraries work without an issue and I know I can always change things around if the need arises.  
 

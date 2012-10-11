@@ -13,7 +13,8 @@ I know, I know: It is foolish to build your own build system! But it's quite a l
 ### eclipse and CDT
 
 The [CDT](http://eclipse.org/cdt/) (C/C++ Development Tooling) is easily the best available open source C++ IDE available. It is well suited for companies that need a feature rich environment while at the same time want to shape and customize it for individual use cases. Thus we were able to add support for our compiler or, as just recently, completely replace the make based CDT build environment with our custom build system.
-</section>
+
+</div>
 
 Just to reiterate briefly: we were frustrated by a lot of aspects of the build-system that is normally used by the CDT: 
 
