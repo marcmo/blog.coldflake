@@ -14,7 +14,7 @@ Then you compile and link, probably missing some libraries the first time until 
 ### Building Cling
 
 You gotta checkout [llvm and clang](http://clang.llvm.org/get_started.html) from svn (do **not** use the git mirror! The makefile for cling uses the svn information!). Next checkout cling from svn into the tools folder and apply all the patches in the cling/patches directory and start your *configure - make - make install* cycle the same way you'd do for llvm and clang alone. Don't forget to include the  --enable-targets=host when running configure.
-</section>
+</div>
 
 So why put up with all of this when the next ruby or python or haskell interpreter is just a couple of keystrokes away: type `irb` or `ghci` and of you go. No includes, no compile, no linker. Just get to the meat of your idea and start experimenting. Still, would be nice to have this for C++ as well.  
 Yesterday I discovered something truly awesome: [cling](http://root.cern.ch/drupal/content/cling), an interactive interpreter for the C++ language based on clang/llvm.  
@@ -31,7 +31,7 @@ $ cling  -Wc++11-extensions -std=c++11
 * Type C++ code and press enter to run it *
 *             Type .q to exit             *
 *******************************************
-<span id="prompt">[cling]</span>$ 
+<span id="prompt">[cling]</span>$
 </pre>
 
 Ready for a test run:
@@ -68,7 +68,7 @@ input_line_36:1:10: <span style="color: #cb4b15;">fatal error:</span> 'math' fil
       ^
 </pre>
 
-Uuh...header file not found...at least the error message is nice. 
+Uuh...header file not found...at least the error message is nice.
 
 <pre class="terminal">
 <span id="prompt">[cling]</span>$ #include &lt;cmath&gt;
