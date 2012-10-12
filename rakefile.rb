@@ -6,14 +6,10 @@ Port=8888
 out="bin"
 haky="#{out}/coldflake"
 input="coldflake.hs"
-# input="compilersample.hs"
 CLEAN.include('**/*.hi','**/*.o')
 CLOBBER.include(out)
 
 directory out
-def runHastache post
-  sh "runghc hastacheProcessing.hs #{post} | pbcopy"
-end
 
 task :checkSass do
   found = false
@@ -21,10 +17,6 @@ task :checkSass do
     found = found || (gem.name == "sass")
   end
   raise "no sass compiler found!" unless found
-end
-desc 'compile a post with hastache'
-task :hastache, [:post] do |t,args|
-  runHastache args[:post]
 end
 
 desc 'build site'
@@ -35,7 +27,6 @@ file haky => FileList.new("**/*.hs") << out << :checkSass do
     puts "buiding #{haky} was not possible: #{e}"
   end
 end
-task :hastache => [:code2html]
 
 task :clean_hakyll do
   begin
@@ -91,7 +82,7 @@ def needsUpdate?
   puts st
   st.lines.count > 0
 end
-  
+
 desc 'deploy latest generated site to server'
 task :deploy => :rebuild do
   sha = `git show -s --pretty=format:%T master`[0..6]
@@ -110,19 +101,10 @@ task :deploy => :rebuild do
   end
 end
 
-
-def escape(n)
-  escapes = {
-    "+" => "Plus"
-  }
-  n.split("").reduce("") do |acc,x|
-    acc << (escapes[x] ? escapes[x] : x)
-  end
-end
 desc 'create new post'
-task :newPost, [:post_name] do |t,args|
-  name = escape(args[:post_name])
+task :newPost, [:name] do |t,args|
   t = Time.now
+  name = args[:name]
   postName = t.strftime("%Y-%m-%d-#{name}.md")
   post = File.join("posts",postName)
   if File.exists?(post)
