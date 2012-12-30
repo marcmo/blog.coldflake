@@ -104,9 +104,10 @@ Operations on multiple files are very frequent. Some situation I found myself in
 I [found] 2 good ways to solve this: my prefered one makes use of *substitution operations*:
 
 ~~~ {.bash}
-for i in *.mp4; do ffmpeg -i "$i" "${i/.mp4}.mp3"; done
+for i in *.mp4; do ffmpeg -i "$i" "${i%.mp4}.mp3"; done
 ~~~
 
+Here the subtitution operator `${i%.mp4}` deletes the shortest possible match from the right side.  
 This is nice and terse...but there is another variant that might even be a little more explicit: using *basename*
 
 ~~~ {.bash}
