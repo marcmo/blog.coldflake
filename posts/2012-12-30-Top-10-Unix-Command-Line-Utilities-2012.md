@@ -119,7 +119,13 @@ for i in *.mp4; do ffmpeg -i "$i" "`basename $i .mp4`.mp3"; done
 There are for sure hundreds of ways to achieve this...I liked the combination of a simple `find` with a short and sweet `awk` function:
 <pre class="terminal">
 <span id="prompt">tmp</span> > find . -iname "*.png" -ls | awk '{s += $7} END {print s}'
-2592916
+2076723
+</pre>
+
+As some people on [hn] pointed out *awk* is probably not the simplest solution for summing up space usage. So I include an example inspired from [this blog].
+<pre class="terminal">
+<span id="prompt">tmp</span> > find . -iname "*.png" -print0 | xargs -0 du -ch | tail -1
+2.2M	total
 </pre>
 
 ## 7> df
@@ -272,3 +278,5 @@ Combining hex and octal output quickly allows for relating the hex values to the
 [Photo: David Mark/Pixbay]:http://pixabay.com/en/users/tpsdave/
 [(creativecommons)]:http://creativecommons.org/publicdomain/zero/1.0/deed.en
 [here]:http://www.marksanborn.net/howto/wiping-a-hard-drive-with-dd/
+[hn]:http://news.ycombinator.com/item?id=4985393
+[this blog]:http://mrnugget.github.com/blog/2012/10/24/command-line-ride/
