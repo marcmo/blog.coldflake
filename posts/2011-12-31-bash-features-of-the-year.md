@@ -4,6 +4,8 @@ description: a selection of the most useful bash commands I (re)-discovered this
 tags: unix, bash
 ---
 
+![](/images/unixtools2011/snowtrees.jpg)
+
 Whenever I find some useful command line utility I made it a habit to write it down so that I can come back later in case I don't remember. Turns out that it is quit a lot that I note. The following is a distilled version of my favorite ones from 2011. For most of them I found examples somewhere on the net but unfortunately didn't not that information so I cannot refer back to the original source.
 
 ## 1> diffing two folders
@@ -172,4 +174,6 @@ coldflake.com.		83707	IN	NS	ns1.linode.com.
 coldflake.com.		83707	IN	NS	ns2.linode.com.
 </pre>
 
+
+<citation>[Photo: flyupmike/Pixbay](http://pixabay.com/en/users/flyupmike/) [(creativecommons)](http://creativecommons.org/publicdomain/zero/1.0/deed.en)</citation>
 
