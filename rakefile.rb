@@ -96,7 +96,7 @@ task :deploy => :rebuild do
       sh "git add -u ."
       sh "git add ."
       sh "git commit -m '#{msg}'"
-      sh "git push coldflake"
+      sh "git push blog"
     end
   end
 end
