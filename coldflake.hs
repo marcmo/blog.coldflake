@@ -147,6 +147,7 @@ feedConfiguration = FeedConfiguration
     { feedTitle = "Conflating Bits"
     , feedDescription = "writeup of various programming related topics"
     , feedAuthorName = "Oliver Mueller"
+    , feedAuthorEmail = "oliver.mueller@gmail.com"
     , feedRoot = "http://blog.coldflake.com"
     }
 
