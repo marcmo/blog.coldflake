@@ -89,14 +89,29 @@ This fetches an html-page from wikipedia and first does some preprocessing using
 `sort | uniq -c` &mdash; sort, remove dups but remember the **c**ount  
 `sort -n -r` &mdash; sort **n**umerically in **r**everse order
 
-## 4> split
+## 4> split and cat
 
 Again a very simple command but can be surprisingly helpful.  
 This is an example that splits a huge file into 75 MB chunks:
 
 ~~~ {.bash}
-split -b 75m input.txt
+split -b 75m input.zip
 ~~~
+
+This will result in a bunch of files that are named with 3 letters starting from `xaa`,`xab`,...  
+To reassemble the lot, all those files have to be con**cat**inated in alphabetic order:
+
+~~~ {.bash}
+cat `ls x*` > reassembled.zip
+~~~
+
+Just a quick check to make sure we ended up with the same content:
+
+<pre class="terminal">
+<span id="prompt">tmp</span> > ls *.zip | xargs md5
+MD5 (input.zip) = d760b448595f844b1162eaa3c04f83d8
+MD5 (reassembled.zip) = d760b448595f844b1162eaa3c04f83d8
+</pre>
 
 ## 5> substitution operations
 
