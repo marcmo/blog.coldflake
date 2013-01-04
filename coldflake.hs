@@ -5,7 +5,7 @@ import Prelude hiding (id)
 import Control.Monad (forM_)
 import Data.Monoid (mempty)
 import Text.Pandoc (WriterOptions(..))
-import Data.List(intercalate,intersperse)
+import Data.List(intersperse)
 import qualified Text.Blaze.Html5 as H
 import Text.Blaze ((!), toValue)
 import Text.Blaze.Html (toHtml)
@@ -13,7 +13,7 @@ import Text.Blaze.Html.Renderer.String(renderHtml)
 import qualified Text.Blaze.Html5.Attributes as A
 import Control.Category (id)
 import Control.Arrow ((>>>), arr, (&&&), (***), (<<^), returnA)
-import Data.Maybe (catMaybes, fromMaybe)
+import Data.Maybe (fromMaybe)
 
 import Hakyll
 
@@ -24,8 +24,8 @@ main = hakyll $ do
     ["code/**"]   --> copy
     ["test.html"]   --> copy
 
-    ["posts/*"] --> post 
-    ["css/*"] --> css 
+    ["posts/*"] --> post
+    ["css/*"] --> css
     ["index.html"] --> index
     ["posts.html"] --> allposts
 
@@ -38,11 +38,11 @@ main = hakyll $ do
     metaCompile $ require_ "tags"
       >>> arr tagsMap
       >>> arr (map (\(t, p) -> (tagIdentifier t, makeTagListCompiler t p)))
-        
+
     -- Render RSS feed
     match "rss.xml" $ route idRoute
     create "rss.xml" $ requireAll_ "posts/*" >>> renderRss feedConfiguration
-            
+
     -- Read templates
     match "templates/*" $ compile templateCompiler
 
@@ -62,13 +62,13 @@ main = hakyll $ do
       tagIdentifier :: String -> Identifier (Page String)
       tagIdentifier = fromCapture "tags/*"
       tagIdentifierEscaped = fromCapture "tags/*" . escapeStr
-    
+
       description = "Exploring and learning in the dazzling array of fascintating software technologies"
       keywords = "marcmo, haskell, hakyll, programming, ruby, rake, bash, linux"
 
-      escape x 
+      escape x
             | x == '+' = "%2B"
-            | otherwise = x:[]
+            | otherwise = [x]
       escapeStr = concatMap escape
 
       -- Useful combinator here
@@ -83,7 +83,7 @@ main = hakyll $ do
       sass :: Compiler Resource String
       sass = getResourceString >>> unixFilter "sass" ["-s","--scss"]
                               >>> arr compressCss
-      
+
       post = do
         route   $ setExtension ".html"
         compile $ blogCompiler
@@ -119,8 +119,8 @@ main = hakyll $ do
                     "templates/postitem.html" "posts" "posts/*"
             >>> applyTemplateCompiler "templates/posts.html"
             >>> applyTemplateCompiler "templates/default.html"
-      
-      
+
+
       makeTagListCompiler :: String -> [Page String] -> Compiler () (Page String)
       makeTagListCompiler tag posts =
         constA posts
@@ -158,7 +158,7 @@ renderMyTags makeUrl = proc (Tags tags) -> do
     returnA -< renderHtml $ mapM_ toHtml (intersperse (toHtml (" " :: String)) (map makeItem tags'))
 
 makeItem :: ((String, Maybe FilePath), Int) -> H.Html
-makeItem ((tag, maybeUrl), count) =
+makeItem ((tag, maybeUrl), _) =
       H.a ! A.href (toValue url) $ toHtml tag
         where url = toUrl $ fromMaybe "/" maybeUrl
 
