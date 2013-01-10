@@ -1,7 +1,7 @@
 ---
 title: Lunch break coding - brainfuck
 description: prolog problem solved in haskell
-tags: haskell, puzzle
+tags: haskell, puzzle, algorithm
 ---
 
 This is probably the worst name for a programming language after Javascript... but it's a really fun little language! The task is to [write an interpreter for it](http://programmingpraxis.com/2011/10/04/brainfuck/).

@@ -1,7 +1,7 @@
 ---
 title: A Tool for a Fool
 description: correcting misspelled header file include lines
-tags: haskell, C++, tool
+tags: haskell, C++, tool, algorithm, datastructure
 ---
 
 It has been a while since I was foolish enough to convince some of my colleagues to use Linux as their primary OS instead of Windows. By now it has become much easier to ensure everything important runs on the Linux boxes. But the development team of a recent project was quite large (>80 devs!) and most of those still work in a Windows environment.  

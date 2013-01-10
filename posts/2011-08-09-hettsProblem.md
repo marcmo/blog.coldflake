@@ -1,7 +1,7 @@
 ---
 title: Lunch break coding
 description: prolog problem solved in haskell
-tags: haskell, puzzle
+tags: haskell, puzzle, algorithm
 ---
 
 Found a neat little site on programming puzzles for prolog programmers today in my lunch break. Of course I needed to try one immediately! Just for the fun of it and to see if haskell is suitable for this *prolog* problems.

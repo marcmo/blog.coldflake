@@ -1,7 +1,7 @@
 ---
 title: Lunch break coding - First Nonrepeating Character
 description: simple programming puzzle
-tags: haskell, puzzle
+tags: haskell, puzzle, algorithm
 ---
 
 Again a little programming task frome [here](http://programmingpraxis.com/2011/08/19/first-non-repeating-character/):

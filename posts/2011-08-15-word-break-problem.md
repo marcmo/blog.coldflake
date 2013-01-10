@@ -1,7 +1,7 @@
 ---
 title: Lunch break coding - Word Break Problem
 description: simple programming puzzle to break up words according to dictionary
-tags: haskell, puzzle
+tags: haskell, puzzle, algorithm
 ---
 
 Another funny little programming puzzle that I found [here](http://programmingpraxis.com/2011/08/12/word-breaks/) describes the _Word Break Problem_.
