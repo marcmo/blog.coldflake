@@ -28,36 +28,8 @@ body {
   padding: 0;
   font-family: "ff-tisa-web-pro", serif;
 }
-
-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  margin-bottom: 1.4em;
-  width: 100%;
-  border: 1px solid black;
-}
-
-table, td, th {
-  vertical-align: middle;
-}
-
-blockquote {
-  color: grey;
-  font-size: 0.9em;
-  border-left: 3px solid #ccc;
-}
-
-a img {
-  border: none;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 400;
-  color: black;
-}
-
 h1 {
-  font-size: 2.5em;
+  font-size: 2.30em;
   line-height: 1;
   margin-bottom: 0.5em;
 }
@@ -89,6 +61,38 @@ h5 {
 h6 {
   font-size: 1em;
   font-weight: 700;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  color: black;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 1.4em;
+  width: 100%;
+  border: 1px solid black;
+}
+
+table, td, th {
+  vertical-align: middle;
+}
+
+blockquote {
+  color: grey;
+  font-size: 0.9em;
+  border-left: 3px solid #ccc;
+}
+
+img {
+  max-width: 100%;
+  margin: 0 auto 0.5em!important;
+  text-align: center;
+}
+a img {
+  border: none;
 }
 
 p img {
@@ -180,7 +184,7 @@ html {
 }
 
 div.container {
-  margin: 3em 12.5em;
+  margin: 3em 230px;
 }
 
 #posts h1 {
@@ -209,7 +213,7 @@ footer {
 article {
   margin-bottom: 1em;
   color: #404040;
-  font-size: 1.15em;
+  // font-size: 1.15em;
   h1 {
     margin: 0 0 25px;
     font-weight: 600;
@@ -222,11 +226,11 @@ article {
   p {
     citation {
       font-size: 0.4em;
-      color: grey; 
+      color: grey;
     }
   }
   p.meta {
-    font-size: 0.9em;
+    font-size: 0.95em;
     font-style: italic;
     color: #d4d4d4;
     margin: 1em 0 0; }
@@ -234,7 +238,7 @@ article {
     color: #555555;
   }
   figure {
-    margin: 0 2em 1em; }
+    margin: 0 0 1em; }
 }
 
 .leftinfo {
@@ -340,7 +344,7 @@ nav h1 {
 ol#toc li {
   p {
     margin-bottom: 1em;
-    font-size: 1.0em;
+    font-size: 0.9em;
     color: #333333; }
   h2 {
     font-size: 1.3em;
@@ -364,10 +368,10 @@ header.home {
   margin-left: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
-  background: url("/images/mountainflake.png") no-repeat;
 }
 
-@media all and (max-width:1000px) {
+//width < 1030px
+@media all and (max-width:64.375em) {
   div {
     &.information {
       width: 100%;
@@ -377,8 +381,8 @@ header.home {
     }
   }
 }
-
-@media all and (max-width:800px) {
+//width < 800px
+@media all and (max-width:50.000em) {
   div.container {
     margin: 0em 0.5em;
   }
@@ -391,6 +395,49 @@ header.home {
   }
   #mobile {
     display: block;
+  }
+}
+//width < 500px
+@media all and (max-width:31.250em) {
+  body {
+    font-size:95%;
+  }
+}
+//800px < width
+@media screen and (min-width:50.000em) {//800 px
+  body {
+    font-size:120%;
+  }
+  h1 {
+    font-size: 2.4em;
+  }
+}
+
+//1030px < width
+@media screen and (min-width:64.375em) {//1030px
+  body {
+    font-size:135%;
+  }
+  h1 {
+    font-size: 2.5em;
+  }
+}
+//1200px < width
+@media screen and (min-width:75.000em) and (min-height:31.250em) {//1200x500px
+  body {
+    font-size:145%;
+  }
+  h1 {
+    font-size: 2.65em;
+  }
+}
+//1650px < width
+@media screen and (min-width:103.125em) and (min-height:50.000em) {//1650x800px
+  body {
+    font-size:160%;
+  }
+  h1 {
+    font-size: 2.90em;
   }
 }
 
@@ -415,9 +462,6 @@ body {
       text-align: left;
       margin: 0;
       padding: 0; }
-    p {
-      font-size: 1.0em;
-    }
   }
   &.default div.container {
     padding-top: 5px;
@@ -493,5 +537,6 @@ ol#toc, body.postlist ul {
 ol#toc li {
   list-style-type: none;
 }
+
 
 

@@ -5,7 +5,7 @@ keywords: blogging, programming, productivity
 tags: blogging, git
 ---
 
-This year I finally got around to start writing about some of the my technical projects and programming related tasks. And starting out fresh the quickest way was to use some ready-to-go blogging framework. The choices for this are actually pretty amazing...ranging from microblogging services like [Posterous] and [Tumblr] to full fledged blogging frameworks like [Wordpress] and [Blogger]. Of those services Tumblr seemed like an especially good fit for my needs.
+This year I finally got around to start writing about some of my technical projects and programming related tasks. And starting out fresh the quickest way was to use some ready-to-go blogging framework. The choices for this are actually pretty amazing...ranging from microblogging services like [Posterous] and [Tumblr] to full fledged blogging frameworks like [Wordpress] and [Blogger]. Of those services Tumblr seemed like an especially good fit for my needs.
 
 <div class="information rightinfo">
 
