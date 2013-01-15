@@ -1,8 +1,18 @@
 $green-link: #82BD10;
+$light-green: #03d;
+$light-yellow: #fff4ab;
 $stone-grey: #606060;
 $cloud-black: #363636;
 $elephant-grey: #303240;
 $abstract-grey: #9b9b9b;
+$background-grey: #F7F7F7;
+$quote-grey: #ccc;
+$medium-grey: #aaa;
+$caption-grey: #efefef;
+$light-grey: #d4d4d4;
+$dark-grey: #404040;
+$mouse-grey: #555;
+$young-mouse-grey: #333;
 
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
   border: 0;
@@ -19,10 +29,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 body {
   line-height: 1.5;
   font-size: 1.2em;
-  color: #32271b;
   word-spacing: 0.15em;
-  min-width: 960px;
-  max-width: 1140px;
   position: relative;
   margin: 0 auto;
   padding: 0;
@@ -83,7 +90,7 @@ table, td, th {
 blockquote {
   color: grey;
   font-size: 0.9em;
-  border-left: 3px solid #ccc;
+  border-left: 3px solid $quote-grey;
 }
 
 img {
@@ -141,7 +148,7 @@ th, td, caption {
 }
 
 caption {
-  background: #efefef;
+  background: $caption-grey;
 }
 
 .small {
@@ -180,11 +187,11 @@ header, footer {
 }
 
 html {
-  background-color: #F7F7F7;
+  background-color: $background-grey;
 }
 
 div.container {
-  margin: 3em 230px;
+  margin: 3em 12em 0 12em;
 }
 
 #posts h1 {
@@ -195,12 +202,12 @@ div.container {
 }
 
 footer {
-  border-top: 1px solid #aaaaaa;
+  border-top: 1px solid $medium-grey;
   margin-top: 1em;
   p {
     font-size: 0.8em;
     line-height: 1.1em;
-    color: #d4d4d4;
+    color: $light-grey;
     padding: 1em 0; }
   #oliver-on-twitter a {
     display: -moz-inline-box;
@@ -213,8 +220,7 @@ footer {
 
 article {
   margin-bottom: 1em;
-  color: #404040;
-  // font-size: 1.15em;
+  color: $dark-grey;
   h1 {
     margin: 0 0 25px;
     font-weight: 600;
@@ -233,10 +239,10 @@ article {
   p.meta {
     font-size: 0.95em;
     font-style: italic;
-    color: #d4d4d4;
+    color: $light-grey;
     margin: 1em 0 0; }
   p.meta a {
-    color: #555555;
+    color: $mouse-grey;
   }
   figure {
     margin: 0 0 1em; }
@@ -253,34 +259,34 @@ article {
 div {
   &.information {
     background-color: $cloud-black;
-    color: #d4d4d4;
+    color: $light-grey;
     width: 17em;
     font-size: 0.9em;
     font-family: "facitweb", "museo-sans-1", "museo-sans-2", sans-serif;
     padding-top: 1em;
     a {
       &:focus, &:hover {
-        color: #d4d4d4;
+        color: $light-grey;
       }
     }
     hr {
       width: 15em;
       height: 2px;
-      background-color: #d4d4d4;
-      color: #d4d4d4;
+      background-color: $light-grey;
+      color: $light-grey;
       border: 0; }
     p {
       margin: 10px;
     }
     h3 {
-      color: #d4d4d4;
+      color: $light-grey;
       background-color: $cloud-black;
       margin: 0;
       padding: 0 20px 10px 10px;
       text-transform: uppercase;
       font-size: 1.3em;
       a {
-        color: #d4d4d4;
+        color: $light-grey;
       }
     }
     h4 {
@@ -332,7 +338,7 @@ section#page img {
     }
     &:active {
       color: white;
-      background-color: #03d;
+      background-color: $light-green;
       opacity: 0.75!important;
     }
   }
@@ -345,7 +351,7 @@ ol#toc li {
   p {
     margin-bottom: 1em;
     font-size: 0.9em;
-    color: #333333; }
+    color: $young-mouse-grey; }
   h2 {
     font-size: 1.3em;
     line-height: 1.2em;
@@ -380,6 +386,9 @@ header.home {
       }
     }
   }
+  div.container {
+    margin: 3em 8em 0 12em;
+  }
 }
 //width < 800px
 @media all and (max-width:50.000em) {
@@ -388,7 +397,7 @@ header.home {
   }
   body {
     min-width: 220px;
-    max-width: 800px;
+    width: 100%;
   }
   header.home {
     display: none;
@@ -400,7 +409,7 @@ header.home {
 //width < 500px
 @media all and (max-width:31.250em) {
   body {
-    font-size:95%;
+    font-size:100%;
   }
 }
 //800px < width
@@ -517,11 +526,11 @@ dt a {
 }
 
 *::-moz-selection, ::selection {
-  background: #fff4ab none repeat scroll 0 0;
+  background: $light-yellow none repeat scroll 0 0;
 }
 
 footer p a {
-  color: #555555;
+  color: $mouse-grey;
 }
 
 section#page h1 {
