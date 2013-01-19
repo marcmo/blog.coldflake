@@ -1,4 +1,5 @@
 $green-link: #82BD10;
+$green-visited: #435E0C;
 $light-green: #03d;
 $light-yellow: #fff4ab;
 $stone-grey: #606060;
@@ -30,7 +31,7 @@ body {
   line-height: 1.5;
   font-size: 1.2em;
   word-spacing: 0.15em;
-  position: relative;
+  // position: relative;
   margin: 0 auto;
   padding: 0;
   font-family: "ff-tisa-web-pro", serif;
@@ -114,11 +115,22 @@ p img {
   }
 }
 
+#mobile.column {
+  img {
+    max-width: 100%;
+    margin-left: 0.5em !important;
+    margin-top: 0.5em !important;
+  }
+}
+
 a {
   color: $green-link;
   text-decoration: none;
   &:hover {
     text-decoration: none;
+  }
+  &:visited {
+    color: $green-visited;
   }
 }
 
@@ -190,9 +202,9 @@ html {
   background-color: $background-grey;
 }
 
-div.container {
-  margin: 3em 12em 0 12em;
-}
+// div.container {
+//   margin: 3em 12em 0 12em;
+// }
 
 #posts h1 {
   margin-top: 0.5em;
@@ -369,14 +381,7 @@ header.home {
   width: 200px;
 }
 
-#mobile.column {
-  width: 350px;
-  margin-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-//width < 1030px
+//width less then 1030px
 @media all and (max-width:64.375em) {
   div {
     &.information {
@@ -386,33 +391,28 @@ header.home {
       }
     }
   }
-  div.container {
-    margin: 3em 8em 0 12em;
-  }
+  div.container { margin: 3em 8em 0 12em; }
 }
-//width < 800px
+//width less then 800px
 @media all and (max-width:50.000em) {
-  div.container {
-    margin: 0em 0.5em;
-  }
+  div.container { margin: 0em 0.5em; }
   body {
     min-width: 220px;
     width: 100%;
   }
-  header.home {
-    display: none;
-  }
-  #mobile {
-    display: block;
-  }
+  header.home { display: none; }
+  #mobile { display: block; }
 }
-//width < 500px
+//width less then 500px
 @media all and (max-width:31.250em) {
   body {
     font-size:100%;
   }
+  div.container {
+    margin: 0 10px 0 10px;
+  }
 }
-//800px < width
+//width more then 800px
 @media screen and (min-width:50.000em) {//800 px
   body {
     font-size:120%;
@@ -422,7 +422,7 @@ header.home {
   }
 }
 
-//1030px < width
+//width more then 1030px
 @media screen and (min-width:64.375em) {//1030px
   body {
     font-size:135%;
@@ -430,23 +430,15 @@ header.home {
   h1 {
     font-size: 2.5em;
   }
+  div.container { margin: 3em 8em 0 12em; }
 }
-//1200px < width
+//width more then 1200px
 @media screen and (min-width:75.000em) and (min-height:31.250em) {//1200x500px
   body {
     font-size:145%;
   }
   h1 {
     font-size: 2.65em;
-  }
-}
-//1650px < width
-@media screen and (min-width:103.125em) and (min-height:50.000em) {//1650x800px
-  body {
-    font-size:160%;
-  }
-  h1 {
-    font-size: 2.90em;
   }
 }
 
@@ -546,5 +538,6 @@ ol#toc, body.postlist ul {
 ol#toc li {
   list-style-type: none;
 }
+
 
 
