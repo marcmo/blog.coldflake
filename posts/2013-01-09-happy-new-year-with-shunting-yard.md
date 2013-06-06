@@ -8,7 +8,7 @@ tags: haskell, puzzle, algorithm, lua
 
 One of my resolutions for the new year is to solve more interesting problems and learn about new algorithms. The new year puzzle from [programming praxis] has some very interesting problem that I used as an excuse to try out one of Dijkstra's algorithms: [Shunting Yard].
 
-> As we begin the new year, we note that 109-8*7+654*3-2/1 = 2013. There are three other combinations of the numbers 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, in order, combined with the five operators NIL, +, -, * and / that also evaluate to 2013.
+> As we begin the new year, we note that 109-8\*7+654\*3-2/1 = 2013. There are three other combinations of the numbers 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, in order, combined with the five operators NIL, +, -, \* and / that also evaluate to 2013.
 >
 > Your task is to write a program that finds all four expressions that evaluate to 2013.
 
@@ -175,6 +175,9 @@ higher Mult Minus = True
 higher _ _ = False
 ~~~
 
+~~~ {.haskell}
+apply :: Operator -> Double -> Double -> Double
+~~~
 Now that we can evaluate expression, the only thing that remains is to generate all possible expressions and filter out the valid one:
 
 ~~~ {.haskell}
@@ -186,7 +189,7 @@ interleave (n:ns) cs =
 solve n = [combo | combo <- map (interleave ids) (combinations 9 operators)
                  , eval combo == n]
   where ids = [Id n | n <- reverse [1..10]]
-~~~ {.haskell}
+~~~
 
 Turns out for the size of the problem it is quite possible to check all combinations (we have to use 9 operators, for each 5 possibilities, so there are 5^9 ~ 2 mio. combinations). Running the code on my Macbook Pro 2.3 GHz Core i5 seems fast enough:
 
