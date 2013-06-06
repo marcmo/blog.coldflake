@@ -1,164 +1,208 @@
-{-# LANGUAGE OverloadedStrings, Arrows #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Main where
 
-import Prelude hiding (id)
-import Control.Monad (forM_)
-import Data.Monoid (mempty)
-import Text.Pandoc (WriterOptions(..))
-import Data.List(intersperse)
-import qualified Text.Blaze.Html5 as H
-import Text.Blaze ((!), toValue)
-import Text.Blaze.Html (toHtml)
-import Text.Blaze.Html.Renderer.String(renderHtml)
-import qualified Text.Blaze.Html5.Attributes as A
-import Control.Category (id)
-import Control.Arrow ((>>>), arr, (&&&), (***), (<<^), returnA)
-import Data.Maybe (fromMaybe)
+import Data.Functor ((<$>))
+import Control.Applicative((<$>),(<*>))
+import Data.List (isPrefixOf,intercalate,intersperse)
+import Data.Monoid (mappend)
+import Data.Text (pack, unpack, replace, empty)
+import Text.Blaze.Html (toHtml,toValue, (!))
+import Text.Blaze.Html.Renderer.String (renderHtml)
+import qualified Text.Blaze.Html5 as BlazeHtml
+import qualified Text.Blaze.Html5.Attributes as BlazeAttr
+import Data.Char
 
 import Hakyll
 
 main :: IO ()
 main = hakyll $ do
-    ["images/**"]   --> copy
-    ["js/**"]   --> copy
-    ["code/**"]   --> copy
-    ["test.html"]   --> copy
+    -- Build tags
+    tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
-    ["posts/*"] --> post
-    ["css/*"] --> css
-    ["index.html"] --> index
-    ["posts.html"] --> allposts
+    -- Static files
+    match ("images/**" .||. "js/**" .||. "code/**" .||. "test.html") $ do
+        route   idRoute
+        compile copyFileCompiler
 
-    -- Tags
-    create "tags" $
-      requireAll "posts/*" (\_ ps -> readTags ps :: Tags String)
+    -- Compress CSS
+    match "css/*.css" $ do
+        route idRoute
+        compile compressCssCompiler
 
-    -- Add a tag list compiler for every tag
-    match "tags/*" $ route $ setExtension "html"
-    metaCompile $ require_ "tags"
-      >>> arr tagsMap
-      >>> arr (map (\(t, p) -> (tagIdentifier t, makeTagListCompiler t p)))
+    match "css/*.scss" $ do
+            route   $ setExtension "css"
+            compile $ getResourceString >>=
+                withItemBody (unixFilter "sass" ["-s", "--scss"]) >>=
+                return . fmap compressCss
+
+    -- Render posts
+    match "posts/*" $ do
+        route   $ setExtension ".html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/post.html" (tagsCtx tags)
+            >>= (externalizeUrls $ feedRoot feedConfiguration)
+            >>= saveSnapshot "content"
+            >>= (unExternalizeUrls $ feedRoot feedConfiguration)
+            >>= loadAndApplyTemplate "templates/default.html" (tagsCtx tags)
+            >>= relativizeUrls
+            >>= cleanUpUrls
+
+    -- Render posts list
+    create ["posts.html"] $ do
+        route idRoute
+        compile $ do
+            posts <- loadAll "posts/*"
+            sorted <- recentFirst posts
+            itemTpl <- loadBody "templates/postitem.html"
+            list <- applyTemplateList itemTpl (tagsCtx tags) sorted
+            makeItem list
+                >>= loadAndApplyTemplate "templates/posts.html" allPostsCtx
+                >>= loadAndApplyTemplate "templates/default.html" allPostsCtx
+                >>= relativizeUrls
+                >>= cleanUpUrls
+
+    -- Index
+    create ["index.html"] $ do
+        route idRoute
+        compile $ do
+            posts <- loadAll "posts/*"
+            sorted <- take 10 <$> recentFirst posts
+            itemTpl <- loadBody "templates/postitem.html"
+            list <- applyTemplateList itemTpl (tagsCtx tags) sorted
+            makeItem list
+                >>= loadAndApplyTemplate "templates/index.html" (homeCtx tags list)
+                >>= loadAndApplyTemplate "templates/default.html" (homeCtx tags list)
+                >>= relativizeUrls
+                >>= cleanUpUrls
+
+    -- Post tags
+    tagsRules tags $ \tag pattern -> do
+        let title = "Posts tagged " ++ tag
+        route idRoute
+        compile $ do
+            list <- postList tags pattern recentFirst
+            tagList <- renderTagElem tags
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/posts.html"
+                        (constField "title" title `mappend`
+                            constField "body" list `mappend`
+                            defaultContext)
+                >>= loadAndApplyTemplate "templates/default.html"
+                        (constField "title" title `mappend`
+                            constField "tagcloud" tagList `mappend`
+                            descriptionCtx)
+                >>= relativizeUrls
+                >>= cleanUpUrls
+
 
     -- Render RSS feed
-    match "rss.xml" $ route idRoute
-    create "rss.xml" $ requireAll_ "posts/*" >>> renderRss feedConfiguration
+    create ["rss.xml"] $ do
+        route idRoute
+        compile $ do
+            posts <- loadAllSnapshots "posts/*" "content"
+            sorted <- take 10 <$> recentFirst posts
+            renderRss feedConfiguration feedCtx sorted
+
+    create ["atom.xml"] $ do
+        route idRoute
+        compile $ do
+            posts <- loadAllSnapshots "posts/*" "content"
+            sorted <- take 10 <$> recentFirst posts
+            renderAtom feedConfiguration feedCtx sorted
 
     -- Read templates
     match "templates/*" $ compile templateCompiler
 
-    -- Render pages with relative url's
-    forM_ ["about.md","colophon.md","404.md"] $ \p ->
-        match p $ do
-            route $ setExtension ".html"
-            compile $ blogCompiler
-                >>> arr (setField "tagcloud" "")
-                >>> applyTemplateCompiler "templates/default.html"
-                >>> relativizeUrlsCompiler
+renderTagElem :: Tags -> Compiler String
+renderTagElem = renderTags makeLink (intercalate " ")
+    where
+        makeLink tag url count _ _ = renderHtml $
+            BlazeHtml.a ! BlazeAttr.href (toValue url) $ toHtml tag
 
-  where
-      renderTagCloud' :: Compiler (Tags String) String
-      renderTagCloud' = renderMyTags tagIdentifierEscaped
+cleanUpUrls :: Item String -> Compiler (Item String)
+cleanUpUrls item = return $ fmap (withUrls escapeStr) item
 
-      tagIdentifier :: String -> Identifier (Page String)
-      tagIdentifier = fromCapture "tags/*"
-      tagIdentifierEscaped = fromCapture "tags/*" . escapeStr
+escape x
+      | x == '+' = "%2B"
+      | otherwise = [x]
+escapeStr :: String -> String
+escapeStr = concatMap escape
 
-      description = "Exploring and learning in the dazzling array of fascintating software technologies"
-      keywords = "marcmo, haskell, hakyll, programming, ruby, rake, bash, linux"
+descriptionCtx :: Context String
+descriptionCtx =
+    constField "description" description `mappend`
+    defaultContext
 
-      escape x
-            | x == '+' = "%2B"
-            | otherwise = [x]
-      escapeStr = concatMap escape
+postCtx :: Context String
+postCtx =
+    dateField "date" "%B %e, %Y" `mappend`
+    constField "description" description `mappend`
+    descriptionCtx
 
-      -- Useful combinator here
-      xs --> f = mapM_ (`match` f) xs
+allPostsCtx :: Context String
+allPostsCtx =
+    constField "title" "All posts" `mappend`
+    constField "tagcloud" "" `mappend`
+    postCtx
 
-      -- Completely static
-      copy = route idRoute >> compile copyFileCompiler
+homeCtx :: Tags -> String -> Context String
+homeCtx tags list =
+    constField "posts" list `mappend`
+    constField "title" "Index" `mappend`
+    constField "description" description `mappend`
+    constField "tagcloud" "" `mappend`
+    descriptionCtx
 
-      -- CSS directories
-      css = route (setExtension "css") >> compile sass
+description = "Exploring and learning in the dazzling array of fascintating software technologies"
 
-      sass :: Compiler Resource String
-      sass = getResourceString >>> unixFilter "sass" ["-s","--scss"]
-                              >>> arr compressCss
+feedCtx :: Context String
+feedCtx =
+    bodyField "description" `mappend`
+    postCtx
 
-      post = do
-        route   $ setExtension ".html"
-        compile $ blogCompiler
-            >>> arr (renderDateField "date" "%Y-%m-%d" "Date unknown")
-            >>> arr (setField "bodyclass" "post")
-            >>> arr (setField "tagcloud" "")
-            >>> arr (changeField "url" escapeStr)
-            >>> renderTagsField "prettytags" tagIdentifierEscaped
-            >>> applyTemplateCompiler "templates/post.html"
-            >>> applyTemplateCompiler "templates/default.html"
-            >>> relativizeUrlsCompiler
-
-      index = do
-        route idRoute
-        create "index.html" $ constA mempty
-            >>> arr (setField "title" "coldflake blog")
-            >>> arr (setField "description" description)
-            >>> arr (setField "keywords" keywords)
-            >>> arr (setField "bodyclass" "default")
-            >>> arr (setField "tagcloud" "")
-            >>> setFieldPageList (take 10 . recentFirst)
-                    "templates/postitem.html" "posts" "posts/*"
-            >>> applyTemplateCompiler "templates/index.html"
-            >>> applyTemplateCompiler "templates/default.html"
-
-      allposts = do
-        route idRoute
-        create "posts.html" $ constA mempty
-            >>> arr (setField "title" "Posts")
-            >>> arr (setField "bodyclass" "postlist")
-            >>> arr (setField "tagcloud" "")
-            >>> setFieldPageList recentFirst
-                    "templates/postitem.html" "posts" "posts/*"
-            >>> applyTemplateCompiler "templates/posts.html"
-            >>> applyTemplateCompiler "templates/default.html"
-
-
-      makeTagListCompiler :: String -> [Page String] -> Compiler () (Page String)
-      makeTagListCompiler tag posts =
-        constA posts
-            >>> pageListCompiler recentFirst "templates/postitem.html"
-            >>> arr (copyBodyToField "posts" . fromBody)
-            >>> arr (setField "title" $ "Posts tagged " ++ tag)
-            >>> arr (setField "description" $ "View all posts tagged with " ++ tag)
-            >>> arr (setField "keywords" $ "tags, " ++ tag)
-            >>> arr (setField "bodyclass" "postlist")
-            >>> requireA "tags" (setFieldA "tagcloud" renderTagCloud')
-            >>> applyTemplateCompiler "templates/posts.html"
-            >>> applyTemplateCompiler "templates/default.html"
-
-blogCompiler :: Compiler Resource (Page String)
-blogCompiler = pageCompilerWith defaultHakyllParserState opts
-  where opts = defaultHakyllWriterOptions
-                 { writerHtml5 = True
-                 , writerTableOfContents = True
-                 , writerLiterateHaskell = False
-                 }
+tagsCtx :: Tags -> Context String
+tagsCtx tags =
+    tagsField "prettytags" tags `mappend`
+    constField "tagcloud" "" `mappend`
+    postCtx
 
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration
-    { feedTitle = "Conflating Bits"
+    { feedTitle       = "colflake blog - RSS feed"
     , feedDescription = "writeup of various programming related topics"
-    , feedAuthorName = "Oliver Mueller"
+    , feedAuthorName  = "Oliver Mueller"
     , feedAuthorEmail = "oliver.mueller@gmail.com"
-    , feedRoot = "http://blog.coldflake.com"
+    , feedRoot        = "http://blog.coldflake.com"
     }
 
-renderMyTags :: (String -> Identifier (Page a)) -> Compiler (Tags a) String
-renderMyTags makeUrl = proc (Tags tags) -> do
-    tags' <- mapCompiler ((id &&& (getRouteFor <<^ makeUrl)) *** arr length)
-                -< tags
-    returnA -< renderHtml $ mapM_ toHtml (intersperse (toHtml (" " :: String)) (map makeItem tags'))
+externalizeUrls :: String -> Item String -> Compiler (Item String)
+externalizeUrls root item = return $ fmap (externalizeUrlsWith root) item
 
-makeItem :: ((String, Maybe FilePath), Int) -> H.Html
-makeItem ((tag, maybeUrl), _) =
-      H.a ! A.href (toValue url) $ toHtml tag
-        where url = toUrl $ fromMaybe "/" maybeUrl
+externalizeUrlsWith :: String -- ^ Path to the site root
+                    -> String -- ^ HTML to externalize
+                    -> String -- ^ Resulting HTML
+externalizeUrlsWith root = withUrls ext
+  where
+    ext x = if isExternal x then x else root ++ x
+
+-- TODO: clean me
+unExternalizeUrls :: String -> Item String -> Compiler (Item String)
+unExternalizeUrls root item = return $ fmap (unExternalizeUrlsWith root) item
+
+unExternalizeUrlsWith :: String -- ^ Path to the site root
+                      -> String -- ^ HTML to unExternalize
+                      -> String -- ^ Resulting HTML
+unExternalizeUrlsWith root = withUrls unExt
+  where
+    unExt x = if root `isPrefixOf` x then unpack $ replace (pack root) empty (pack x) else x
+
+postList :: Tags
+         -> Pattern
+         -> ([Item String] -> Compiler [Item String])
+         -> Compiler String
+postList tags pattern preprocess' = do
+    postItemTpl <- loadBody "templates/postitem.html"
+    posts <- loadAll pattern
+    processed <- preprocess' posts
+    applyTemplateList postItemTpl (tagsCtx tags) processed
 

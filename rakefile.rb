@@ -39,8 +39,7 @@ task :clean => [:clean_hakyll]
 
 desc "run webserver on port #{Port} for preview"
 task :preview => :rebuild do
-  # sh "python -m SimpleHTTPServer #{Port}"
-  sh "./#{haky} preview #{Port}"
+  sh "./#{haky} preview -p #{Port}"
 end
 
 desc 'incrementally build site'
