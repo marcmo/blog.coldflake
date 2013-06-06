@@ -391,7 +391,7 @@ header.home {
       }
     }
   }
-  div.container { margin: 3em 8em 0 12em; }
+  div.container { margin: 3em 6em 0 12em; }
 }
 //width less then 800px
 @media all and (max-width:50.000em) {
@@ -425,21 +425,24 @@ header.home {
 //width more then 1030px
 @media screen and (min-width:64.375em) {//1030px
   body {
-    font-size:135%;
+    font-size:130%;
+    max-width:95%;
   }
   h1 {
     font-size: 2.5em;
   }
-  div.container { margin: 3em 8em 0 12em; }
+  div.container { margin: 3em 6em 0 12em; }
 }
 //width more then 1200px
 @media screen and (min-width:75.000em) and (min-height:31.250em) {//1200x500px
   body {
-    font-size:145%;
+    font-size:135%;
+    max-width:85%;
   }
   h1 {
     font-size: 2.65em;
   }
+  div.container { margin: 3em 4em 0 10em; }
 }
 
 .hidden {
