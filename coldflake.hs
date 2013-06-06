@@ -1,15 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Main where
 
-import Data.Functor ((<$>))
-import Control.Applicative((<$>),(<*>))
-import Data.List (isPrefixOf,intercalate,intersperse)
-import Data.Monoid (mappend)
-import Data.Text (pack, unpack, replace, empty)
-import Text.Blaze.Html (toHtml,toValue, (!))
-import Text.Blaze.Html.Renderer.String (renderHtml)
-import qualified Text.Blaze.Html5 as BlazeHtml
-import qualified Text.Blaze.Html5.Attributes as BlazeAttr
+import Control.Applicative((<$>))
+import Data.Monoid(mappend)
+import Text.Blaze.Html((!),toHtml,toValue)
+import Text.Blaze.Html.Renderer.String(renderHtml)
+import Text.Blaze.Html5(a)
+import Text.Blaze.Html5.Attributes(href)
 import Data.Char
 
 import Hakyll
@@ -40,9 +37,7 @@ main = hakyll $ do
         route   $ setExtension ".html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html" (tagsCtx tags)
-            >>= (externalizeUrls $ feedRoot feedConfiguration)
             >>= saveSnapshot "content"
-            >>= (unExternalizeUrls $ feedRoot feedConfiguration)
             >>= loadAndApplyTemplate "templates/default.html" (tagsCtx tags)
             >>= relativizeUrls
             >>= cleanUpUrls
@@ -114,19 +109,18 @@ main = hakyll $ do
     match "templates/*" $ compile templateCompiler
 
 renderTagElem :: Tags -> Compiler String
-renderTagElem = renderTags makeLink (intercalate " ")
-    where
-        makeLink tag url count _ _ = renderHtml $
-            BlazeHtml.a ! BlazeAttr.href (toValue url) $ toHtml tag
+renderTagElem = renderTags makeLink unwords
+    where makeLink tag url _ _ _ =
+            renderHtml $ a ! href (toValue url) $ toHtml tag
 
 cleanUpUrls :: Item String -> Compiler (Item String)
 cleanUpUrls item = return $ fmap (withUrls escapeStr) item
 
-escape x
-      | x == '+' = "%2B"
-      | otherwise = [x]
 escapeStr :: String -> String
 escapeStr = concatMap escape
+  where escape x
+          | x == '+' = "%2B"
+          | otherwise = [x]
 
 descriptionCtx :: Context String
 descriptionCtx =
@@ -174,27 +168,6 @@ feedConfiguration = FeedConfiguration
     , feedAuthorEmail = "oliver.mueller@gmail.com"
     , feedRoot        = "http://blog.coldflake.com"
     }
-
-externalizeUrls :: String -> Item String -> Compiler (Item String)
-externalizeUrls root item = return $ fmap (externalizeUrlsWith root) item
-
-externalizeUrlsWith :: String -- ^ Path to the site root
-                    -> String -- ^ HTML to externalize
-                    -> String -- ^ Resulting HTML
-externalizeUrlsWith root = withUrls ext
-  where
-    ext x = if isExternal x then x else root ++ x
-
--- TODO: clean me
-unExternalizeUrls :: String -> Item String -> Compiler (Item String)
-unExternalizeUrls root item = return $ fmap (unExternalizeUrlsWith root) item
-
-unExternalizeUrlsWith :: String -- ^ Path to the site root
-                      -> String -- ^ HTML to unExternalize
-                      -> String -- ^ Resulting HTML
-unExternalizeUrlsWith root = withUrls unExt
-  where
-    unExt x = if root `isPrefixOf` x then unpack $ replace (pack root) empty (pack x) else x
 
 postList :: Tags
          -> Pattern
