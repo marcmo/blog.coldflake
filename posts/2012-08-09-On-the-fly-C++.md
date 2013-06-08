@@ -32,17 +32,17 @@ $ cling  -Wc++11-extensions -std=c++11
 * Type C++ code and press enter to run it *
 *             Type .q to exit             *
 *******************************************
-<span id="prompt">[cling]</span>$
+<span class="prompt">[cling]</span>$
 </pre>
 
 Ready for a test run:
 
 <pre class="terminal">
-<span id="prompt">[cling]</span>$ #include &lt;iostream&gt;
-<span id="prompt">[cling]</span>$ using namespace std;
-<span id="prompt">[cling]</span>$ int a[] = {1,2,3};
-<span id="prompt">[cling]</span>$ for (int& x: a){ x += 10; }
-<span id="prompt">[cling]</span>$ for (int& x: a){ cout << x << ","; }
+<span class="prompt">[cling]</span>$ #include &lt;iostream&gt;
+<span class="prompt">[cling]</span>$ using namespace std;
+<span class="prompt">[cling]</span>$ int a[] = {1,2,3};
+<span class="prompt">[cling]</span>$ for (int& x: a){ x += 10; }
+<span class="prompt">[cling]</span>$ for (int& x: a){ cout << x << ","; }
 11,12,13,
 </pre>
 
@@ -50,20 +50,20 @@ Doing calculations in C can yield some surprising results if the types are not c
 Same thing for bit fiddling...always nice to see how it will play out.
 
 <pre class="terminal">
-<span id="prompt">[cling]</span>$ float r = 7/9;
-<span id="prompt">[cling]</span>$ r
+<span class="prompt">[cling]</span>$ float r = 7/9;
+<span class="prompt">[cling]</span>$ r
 (float) 0.000000e+00
-<span id="prompt">[cling]</span>$ r = (float)7/9;
-<span id="prompt">[cling]</span>$ r
+<span class="prompt">[cling]</span>$ r = (float)7/9;
+<span class="prompt">[cling]</span>$ r
 (float) 7.777778e-01
-<span id="prompt">[cling]</span>$ (0b1 << 5) | 0x1
+<span class="prompt">[cling]</span>$ (0b1 << 5) | 0x1
 (int const) 33
 </pre>
 
 Let's use cling for more complicated math stuff. So we include the math header file:
 
 <pre class="terminal">
-<span id="prompt">[cling]</span>$ #include &lt;math&gt;
+<span class="prompt">[cling]</span>$ #include &lt;math&gt;
 input_line_36:1:10: <span style="color: #cb4b15;">fatal error:</span> 'math' file not found
 #include &lt;math&gt;
       ^
@@ -72,20 +72,20 @@ input_line_36:1:10: <span style="color: #cb4b15;">fatal error:</span> 'math' fil
 Uuh...header file not found...at least the error message is nice.
 
 <pre class="terminal">
-<span id="prompt">[cling]</span>$ #include &lt;cmath&gt;
-<span id="prompt">[cling]</span>$ cos(7)
+<span class="prompt">[cling]</span>$ #include &lt;cmath&gt;
+<span class="prompt">[cling]</span>$ cos(7)
 (double const) 7.539023e-01
 </pre>
 
 Ok...that works nicely. What about using some C++11 features? Let's try a lambda:
 
 <pre class="terminal">
-<span id="prompt">[cling]</span>$ #include &lt;iostream&gt;
-<span id="prompt">[cling]</span>$ using namespace std;
-<span id="prompt">[cling]</span>$ auto func = [] () { cout << "Hello world" << endl; };
-<span id="prompt">[cling]</span>$ func
+<span class="prompt">[cling]</span>$ #include &lt;iostream&gt;
+<span class="prompt">[cling]</span>$ using namespace std;
+<span class="prompt">[cling]</span>$ auto func = [] () { cout << "Hello world" << endl; };
+<span class="prompt">[cling]</span>$ func
 (class <lambda at input_line_6:2:14>) @0x7f7ad79b1021
-<span id="prompt">[cling]</span>$ func()
+<span class="prompt">[cling]</span>$ func()
 Hello world
 </pre>
 
@@ -93,9 +93,9 @@ Wow! Really impressive. Not only can you try out regular C++ bits and pieces, yo
 It's even possible to load and access system libraries using the `.L` load instruction. Here is a brief example of how to load the libpthread and call one of it's functions (`pthread_self`) to retrieve the ID of the calling thread:
 
 <pre class="terminal">
-<span id="prompt">[cling]</span>$ .L libpthread
-<span id="prompt">[cling]</span>$ #include &lt;pthread.h&gt;
-<span id="prompt">[cling]</span>$ pthread_self()
+<span class="prompt">[cling]</span>$ .L libpthread
+<span class="prompt">[cling]</span>$ #include &lt;pthread.h&gt;
+<span class="prompt">[cling]</span>$ pthread_self()
 (pthread_t const) 0x7fff7da43180
 </pre>
 
@@ -125,7 +125,7 @@ While using cling I discovered several things that were not perfect yet:
 * sometimes cling will segfault on small syntax errors and all current environment is lost
 
 <pre class="terminal">
-<span id="prompt">[cling]</span>$ std:string s("hi");
+<span class="prompt">[cling]</span>$ std:string s("hi");
 input_line_7:2:6: <span style="color: #cb4b15;">error:</span> unknown type name 'string'; did you mean 'std::string'?
  std:string s("hi");
      ^~~~~~

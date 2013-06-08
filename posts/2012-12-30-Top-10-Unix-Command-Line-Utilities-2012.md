@@ -17,14 +17,14 @@ Whenever you need to do some small text substitutions `tr` can come in handy (tr
 As a simple example, this line changes the case of the characters 'a' through 'z':
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > echo "Hello" | tr "A-Za-z" "a-zA-Z"
+<span class="prompt">tmp</span> > echo "Hello" | tr "A-Za-z" "a-zA-Z"
 hELLO
 </pre>
 
 More realistic example: split your $PATH into it's elements:
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > echo $PATH | tr ":" "\n" | sort
+<span class="prompt">tmp</span> > echo $PATH | tr ":" "\n" | sort
 
     /Users/oliver/.cabal/bin
     /Users/oliver/.rvm/bin
@@ -41,7 +41,7 @@ More realistic example: split your $PATH into it's elements:
 
 Simple command to sort input in different manners. By default this in alphabetic order, but using the `-n` option will sort in a numeric fashion:
 <pre class="terminal">
-<span id="prompt">tmp</span> > du /bin/* | sort -n -r | head -4
+<span class="prompt">tmp</span> > du /bin/* | sort -n -r | head -4
 1320	/bin/ksh
 1264	/bin/sh
 1264	/bin/bash
@@ -58,7 +58,7 @@ Nice options: `-c` will prepend the count of equal elements before a line, `-u` 
 Here is an example that combines **tr**, **sort** and **uniq** such that you can get the frequency of all words in a wikipedia article:
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > curl http://en.wikipedia.org/wiki/Minimum_spanning_tree \
+<span class="prompt">tmp</span> > curl http://en.wikipedia.org/wiki/Minimum_spanning_tree \
       | tr -cs "A-Za-z" "\n" | tr "A-Z" "a-z" \
       | sort | uniq -c | sort -n -r
 
@@ -108,7 +108,7 @@ cat `ls x*` > reassembled.zip
 Just a quick check to make sure we ended up with the same content:
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > ls *.zip | xargs md5
+<span class="prompt">tmp</span> > ls *.zip | xargs md5
 MD5 (input.zip) = d760b448595f844b1162eaa3c04f83d8
 MD5 (reassembled.zip) = d760b448595f844b1162eaa3c04f83d8
 </pre>
@@ -133,13 +133,13 @@ for i in *.mp4; do ffmpeg -i "$i" "`basename $i .mp4`.mp3"; done
 
 There are for sure hundreds of ways to achieve this...I liked the combination of a simple `find` with a short and sweet `awk` function:
 <pre class="terminal">
-<span id="prompt">tmp</span> > find . -iname "*.png" -ls | awk '{s += $7} END {print s}'
+<span class="prompt">tmp</span> > find . -iname "*.png" -ls | awk '{s += $7} END {print s}'
 2076723
 </pre>
 
 As some people on [hn] pointed out *awk* is probably not the simplest solution for summing up space usage. So I include an example inspired from [this blog].
 <pre class="terminal">
-<span id="prompt">tmp</span> > find . -iname "*.png" -print0 | xargs -0 du -ch | tail -1
+<span class="prompt">tmp</span> > find . -iname "*.png" -print0 | xargs -0 du -ch | tail -1
 2.2M	total
 </pre>
 
@@ -148,7 +148,7 @@ As some people on [hn] pointed out *awk* is probably not the simplest solution f
 Classic. Collects some disk space usage information about your system.
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > df -h
+<span class="prompt">tmp</span> > df -h
 Filesystem     Size   Used  Avail Capacity  iused   ifree %iused  Mounted on
 /dev/disk0s2  156Gi  138Gi   17Gi    89% 36247400 4528347   89%   /
 ...
@@ -182,7 +182,7 @@ for n in `seq 7`; do dd if=/dev/urandom of=/dev/sda bs=8b conv=notrunc; done
 A less destructive example shows how to create an image of the entire master boot record (including the partition table):
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > dd if=/dev/sda of=MBR.img bs=512 count=1
+<span class="prompt">tmp</span> > dd if=/dev/sda of=MBR.img bs=512 count=1
 </pre>
 
 Here *count=1* means copy only 1 input block, *bs=512* sets both input and output block size to 512 bytes.
@@ -201,26 +201,26 @@ In some instances the process started with dd will take a considerable amount of
 First you need to find out about the process id of the dd process:
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > pgrep -l '^dd$'
+<span class="prompt">tmp</span> > pgrep -l '^dd$'
 4523 dd
 </pre>
 
 Then send the USR1 signal to the dd process:
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > kill -USR1 4523
+<span class="prompt">tmp</span> > kill -USR1 4523
 </pre>
 
 When `dd` detects the USR1 signal, it will print out the current statistics to its stderr.
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > 123122312 bytes (xxx GB) copied, 3965.94 s, 13.9 MB/s
+<span class="prompt">tmp</span> > 123122312 bytes (xxx GB) copied, 3965.94 s, 13.9 MB/s
 </pre>
 
 After reporting the status, dd will resume copying. To keep it going use [watch](/posts/2011-12-31-bash-features-of-the-year.html):
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > watch -n 10 kill -USR1 4523
+<span class="prompt">tmp</span> > watch -n 10 kill -USR1 4523
 </pre>
 
 ## 9> zip
@@ -256,7 +256,7 @@ unzip -l a.zip
 When dealing with binary files it is often necessary to glimps a quick view to the actual data. I found that having a little command line utility can be very practical for such cases. `hexdump` has exactly what I need.
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > hexdump  new.zip | head -5
+<span class="prompt">tmp</span> > hexdump  new.zip | head -5
 0000000 70 a9 20 8d b1 a3 5c 1c 16 e3 17 b2 ef 94 16 ac
 0000010 85 40 59 f9 89 40 45 ed 61 e8 10 f5 6f f5 99 a2
 0000020 3a d6 69 62 e0 ab ee 0a 67 b8 c5 21 58 42 4d 52
@@ -267,7 +267,7 @@ When dealing with binary files it is often necessary to glimps a quick view to t
 You can instruct it to display also the corresponding ASCII representation:
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > hexdump -C new.zip | head -5
+<span class="prompt">tmp</span> > hexdump -C new.zip | head -5
 00000000  70 a9 20 8d b1 a3 5c 1c  16 e3 17 b2 ef 94 16 ac  |p. ...\.........|
 00000010  85 40 59 f9 89 40 45 ed  61 e8 10 f5 6f f5 99 a2  |.@Y..@E.a...o...|
 00000020  3a d6 69 62 e0 ab ee 0a  67 b8 c5 21 58 42 4d 52  |:.ib....g..!XBMR|
@@ -278,7 +278,7 @@ You can instruct it to display also the corresponding ASCII representation:
 Combining hex and octal output quickly allows for relating the hex values to their octal counterparts:
 
 <pre class="terminal">
-<span id="prompt">tmp</span> > hexdump -xb new.zip | head -5
+<span class="prompt">tmp</span> > hexdump -xb new.zip | head -5
 0000000    a970    8d20    a3b1    1c5c    e316    b217    94ef    ac16
 0000000 160 251 040 215 261 243 134 034 026 343 027 262 357 224 026 254
 0000010    4085    f959    4089    ed45    e861    f510    f56f    a299
@@ -289,9 +289,12 @@ Combining hex and octal output quickly allows for relating the hex values to the
 
 <citation>[Photo: David Mark/Pixbay]  [(creativecommons)]</citation>
 
+*short update:* somebody took the time to [translate this article] into Serbo-Croatian
+
 [found]:http://www.debian-administration.org/articles/150
 [Photo: David Mark/Pixbay]:http://pixabay.com/en/users/tpsdave/
 [(creativecommons)]:http://creativecommons.org/publicdomain/zero/1.0/deed.en
 [here]:http://www.marksanborn.net/howto/wiping-a-hard-drive-with-dd/
 [hn]:http://news.ycombinator.com/item?id=4985393
 [this blog]:http://mrnugget.github.com/blog/2012/10/24/command-line-ride/
+[translate this article]:http://science.webhostinggeeks.com/unix-komandne-usluzne-linije

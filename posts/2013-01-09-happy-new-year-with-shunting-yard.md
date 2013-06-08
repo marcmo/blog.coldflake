@@ -43,7 +43,7 @@ for i,v in ipairs(res) do print(v,",") end
 And seems to work correctly:
 
 <pre class="terminal">
-<span id="prompt">2013_01_01</span> > time lua combineNumbers.lua 
+<span class="prompt">2013_01_01</span> > time lua combineNumbers.lua 
 109-8*7+654*3-2*1	,
 109-8*7+654*3-2/1	,
 10*98/7*6/5*4*3-2-1	,
@@ -194,7 +194,7 @@ solve n = [combo | combo <- map (interleave ids) (combinations 9 operators)
 Turns out for the size of the problem it is quite possible to check all combinations (we have to use 9 operators, for each 5 possibilities, so there are 5^9 ~ 2 mio. combinations). Running the code on my Macbook Pro 2.3 GHz Core i5 seems fast enough:
 
 <pre class="terminal">
-<span id="prompt">2013_01_01</span> > time ./combineNumbers
+<span class="prompt">2013_01_01</span> > time ./combineNumbers
 
 [[Id 10.0,Mult,Id 9.0,Mult,Id 8.0,Mult,Id 7.0,Div,Id 6.0,Div,Id 5.0,Mult,Id 4.0,Mult,Id 3.0,Minus,Id 2.0,Minus,Id 1.0],
 [Id 10.0,Mult,Id 9.0,None,Id 8.0,Div,Id 7.0,Mult,Id 6.0,Div,Id 5.0,Mult,Id 4.0,Mult,Id 3.0,Minus,Id 2.0,Minus,Id 1.0],

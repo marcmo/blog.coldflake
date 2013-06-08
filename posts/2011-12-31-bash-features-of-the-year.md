@@ -23,7 +23,7 @@ This will compare the 2 folders and look at each directory recursively (`-r`). T
 Even though I use `man` all the time, I never knew that you can easily search all manpages with the `-k` option. This is the result of searching in the manpages about "backup":
 
 <pre class="terminal">
-<span id="prompt">blog.coldflake.git</span>(master) > man -k backup
+<span class="prompt">blog.coldflake.git</span>(master) > man -k backup
 dump(8), rdump(8)        - filesystem backup
 restore(8), rrestore(8)  - restore files or file systems ...
 tdbbackup(8)             - tool for backing up and for ...
@@ -77,7 +77,7 @@ This will first get the size of all items in the current directory and sort thos
 Let's do a quick test run:
 
 <pre class="terminal">
-<span id="prompt">blog.coldflake.git</span>(master) > du -s ./* | sort -n | cut -f 2- \
+<span class="prompt">blog.coldflake.git</span>(master) > du -s ./* | sort -n | cut -f 2- \
   | xargs -Ix du -sh x
 412K	./code
 624K	./images
@@ -124,8 +124,8 @@ seq 5 -1 1  # print numbers from 5 down to 1
 I use it for example to generate files quickly:
 
 <pre class="terminal">
-<span id="prompt">blog.coldflake.git</span>(master) > touch $(seq -f "test%02g" 5)
-<span id="prompt">blog.coldflake.git</span>(master) > ls
+<span class="prompt">blog.coldflake.git</span>(master) > touch $(seq -f "test%02g" 5)
+<span class="prompt">blog.coldflake.git</span>(master) > ls
 test01  test02  test03  test04  test05
 </pre>
     
@@ -135,14 +135,14 @@ test01  test02  test03  test04  test05
 The `file` utility can be used to identify the type of a file and is useful, among other cases, to find out about the architecture for which a file was compiled.
 
 <pre class="terminal">
-<span id="prompt">blog.coldflake.git</span>(master) > file test.o
+<span class="prompt">blog.coldflake.git</span>(master) > file test.o
 test.o: Mach-O 64-bit object x86_64
 </pre>
 
 `nm` is very useful to find out about the symbols listed in the symbol table of object-files and libraries. It can be quite handy to search for the libraries that define a symbol:
 
 <pre class="terminal">
-<span id="prompt">blog.coldflake.git</span>(master) > nm -o /lib/* /usr/lib/* 2> /dev/null | grep 'printf$'
+<span class="prompt">blog.coldflake.git</span>(master) > nm -o /lib/* /usr/lib/* 2> /dev/null | grep 'printf$'
 /usr/lib/dyld: 00007fff5fc1b3ef t ___simple_bprintf
 /usr/lib/dyld: 00007fff5fc1bc54 t __simple_dprintf
 /usr/lib/dyld: 00007fff5fc1bbe2 t __simple_vdprintf
@@ -156,7 +156,7 @@ test.o: Mach-O 64-bit object x86_64
 
 If you need some information regarding DNS those tools come in handy. `host` is a simple utility for performing DNS lookups. 
 <pre class="terminal">
-<span id="prompt">blog.coldflake.git</span>(master) > host coldflake.com
+<span class="prompt">blog.coldflake.git</span>(master) > host coldflake.com
 coldflake.com has address 173.230.139.188
 coldflake.com mail is handled by 10 mail.coldflake.com.
 </pre>
@@ -164,7 +164,7 @@ coldflake.com mail is handled by 10 mail.coldflake.com.
 `dig` (domain information groper) can be used for interrogating DNS name servers. For example you can use it to retrieve a list of DNS servers authoritative for a domain:
 
 <pre class="terminal">
-<span id="prompt">blog.coldflake.git</span>(master) > dig coldflake.com NS +noall +answer
+<span class="prompt">blog.coldflake.git</span>(master) > dig coldflake.com NS +noall +answer
 ; <<>> DiG 9.6-ESV-R4-P3 <<>> coldflake.com NS +noall +answer
 ;; global options: +cmd
 coldflake.com.		83707	IN	NS	ns3.linode.com.
