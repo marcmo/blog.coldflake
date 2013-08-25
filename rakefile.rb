@@ -1,6 +1,7 @@
 $:.unshift File.dirname(__FILE__)
 require 'rake/clean'
 require 'optional'
+require 'rubygems'
 
 Port=8888
 out="bin"
