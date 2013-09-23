@@ -1,0 +1,60 @@
+@import "css/colors";
+
+html, body, div, h1, h2, a {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-family: Lato, helvetica;
+  font-size: 2.5em;
+  font-weight: 600;
+  line-height: 1.25em;
+  color: $grey-404;
+  margin-bottom: -10px;
+}
+
+h2 {
+  font-size: 1.25em;
+  line-height: 1.25em;
+  font-family: Lato, helvetica;
+  font-weight: 600;
+  color: $grey-404;
+  margin-bottom: 8px;
+  margin-top: 30px;
+}
+
+.not_found {
+  h1 {
+    font-size: 240px;
+    line-height: .75em;
+    text-align: center;
+  }
+  h2 {
+    text-align: center;
+    font-size: 32px;
+  }
+  a {
+    display: block;
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 auto;
+    &:hover {
+      text-decoration: none;
+      color: $green-visited;
+    }
+  }
+}
+
+a {
+  font-family: helvetica;
+  text-decoration: none;
+  color: $green-link;
+}
+
+.not_found {
+  width: 500px;
+  margin: 150px auto;
+}

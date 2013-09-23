@@ -7,7 +7,6 @@ import Text.Blaze.Html((!),toHtml,toValue)
 import Text.Blaze.Html.Renderer.String(renderHtml)
 import Text.Blaze.Html5(a)
 import Text.Blaze.Html5.Attributes(href)
-import Data.Char
 
 import Hakyll
 
@@ -17,7 +16,7 @@ main = hakyll $ do
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
     -- Static files
-    match ("images/**" .||. "js/**" .||. "code/**" .||. "test.html") $ do
+    match ("images/**" .||. "js/**" .||. "code/**" .||. "test.html" .||. "404.html") $ do
         route   idRoute
         compile copyFileCompiler
 
@@ -42,6 +41,11 @@ main = hakyll $ do
             >>= relativizeUrls
             >>= cleanUpUrls
 
+    match "about.md" $ do
+        route   $ setExtension ".html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/default.html" (tagsCtx tags)
+
     -- Render posts list
     create ["posts.html"] $ do
         route idRoute
@@ -65,8 +69,8 @@ main = hakyll $ do
             itemTpl <- loadBody "templates/postitem.html"
             list <- applyTemplateList itemTpl (tagsCtx tags) sorted
             makeItem list
-                >>= loadAndApplyTemplate "templates/index.html" (homeCtx tags list)
-                >>= loadAndApplyTemplate "templates/default.html" (homeCtx tags list)
+                >>= loadAndApplyTemplate "templates/index.html" (homeCtx list)
+                >>= loadAndApplyTemplate "templates/default.html" (homeCtx list)
                 >>= relativizeUrls
                 >>= cleanUpUrls
 
@@ -139,14 +143,15 @@ allPostsCtx =
     constField "tagcloud" "" `mappend`
     postCtx
 
-homeCtx :: Tags -> String -> Context String
-homeCtx tags list =
+homeCtx :: String -> Context String
+homeCtx list =
     constField "posts" list `mappend`
     constField "title" "Index" `mappend`
     constField "description" description `mappend`
     constField "tagcloud" "" `mappend`
     descriptionCtx
 
+description ::  String
 description = "Exploring and learning in the dazzling array of fascintating software technologies"
 
 feedCtx :: Context String

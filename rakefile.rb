@@ -14,7 +14,7 @@ directory out
 
 task :checkSass do
   found = false
-  available_gems = Gem::Specification.find_all do |gem|
+  Gem::Specification.find_all do |gem|
     found = found || (gem.name == "sass")
   end
   raise "no sass compiler found!" unless found
@@ -61,7 +61,6 @@ task :create_file_tasks do
   Dir.glob("code/*") do |p|
     mkdir "#{p}/html" unless Dir.exists?("#{p}/html")
     to_take = Dir.glob("#{p}/*.{rb,hs,h,cpp,c,lua,bf}")
-    leave = Dir.glob("#{p}/*.*") - to_take
     file_tasks << to_take.collect do |f|
       n = File.basename(f).chomp(File.extname(f))
       file "#{p}/html/#{n}.html" => f do |t|
@@ -120,3 +119,8 @@ task :newPost, [:name] do |t,args|
   end
 end
 
+desc 'clean up css'
+task :cleanCSS, [:url] do |t,args|
+  url = args[:url]
+  sh "./run_mincss #{url}"
+end

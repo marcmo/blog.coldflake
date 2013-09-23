@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+
+from mincss.processor import Processor
+import sys
+import urlparse
+
+
+def run(url):
+    p = Processor()
+    p.process(url)
+
+    print "INLINES ".ljust(79, '-')
+    for each in p.inlines:
+        print ("On line %s" % each.line)
+        print '- ' * 40
+        print "BEFORE"
+        print each.before
+        print '- ' * 40
+        print "AFTER:"
+        print each.after
+        print
+    print
+
+    print "LINKS ".ljust(79, '-')
+    for each in p.links:
+        print ("On href %s" % each.href)
+        print '- ' * 40
+        print "BEFORE"
+        print each.before
+        print '- ' * 40
+        print "AFTER:"
+        print each.after
+        print
+    print
+
+
+if __name__ == '__main__':
+    url = sys.argv[1]
+    parts = urlparse.urlsplit(url)
+    if not parts.scheme or not parts.netloc:
+        print "please specify valid url"
+    else:
+        run(url)
