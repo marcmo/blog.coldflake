@@ -40,7 +40,8 @@ The `search` command can be used with regular expressions if the search term is 
 
 ![](/images/brew/homebrew.png)
 
-Of course you can always look up a package online as e.g. on [braumeister]. And if you need a package that is not yet part of homebrew, it can easily be created. All it takes is to locate the sources on the web and call `brew create` with this link. homebrew will create a basic formula (== a ruby script) that you can either just use or tweak manually of some special configure options are needed. Since all formulae are kept in a git repository, it's no problem to create your own packages and still keep up to date with homebrew.
+Of course you can always look up a package online as e.g. on [braumeister]. And if you need a package that is not yet part of homebrew, it can easily be created. All it takes is to locate the sources on the web and call `brew create` with this link. homebrew will create a basic formula (== a ruby script) that you can either just use or tweak manually of some special configure options are needed. Since all formulae are kept in a git repository, it's no problem to create your own packages and still keep up to date with homebrew.  
+In fact, it's so easy to modify a formula and [have it added to the official] repository that a lot of people are contributing to keep everything up to date and grow the pool of available formulae constantly.
 
 ## Warm and Fuzzy
 
@@ -102,6 +103,7 @@ When I found out about brew a couple of years back, I was thrilled by it's simpl
 [macports]:http://www.macports.org
 [homebrew]:http://brew.sh
 [github]:http://github.com/mxcl/homebrew
+[have it added to the official]:https://github.com/mxcl/homebrew/wiki/Formula-Cookbook#commit
 [(creativecommons)]:http://creativecommons.org/publicdomain/zero/1.0/deed.en
 [sinatra]:http://www.sinatrarb.com/
 [braumeister]:http://braumeister.org/
