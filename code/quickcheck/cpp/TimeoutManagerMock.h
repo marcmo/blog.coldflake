@@ -1,10 +1,3 @@
-/**
- * Includes TimeoutManagerMock.
- * @file	TimeoutManagerMock.h
- * @ingroup	mock
- *
- * (c) BMW CarIT GmbH
- */
 #ifndef TIMEOUTMANAGERMOCK_H_
 #define TIMEOUTMANAGERMOCK_H_
 
@@ -14,34 +7,19 @@
 namespace mock
 {
 
-/**
- * @author	matthias.kessler
- *
- * @see	ITimeoutManager
- */
 class TimeoutManagerMock :
 	public common::ITimeoutManager2
 {
 public:
 	TimeoutManagerMock();
 
-	/**
-	 * @see	ITimeoutManager2::set()
-	 */
 	virtual ErrorCode set(
 		common::AbstractTimeout& timeout,
 		uint32 time,
 		bool cyclic = false);
 
-	/**
-	 * @see	ITimeoutManager2::cancel()
-	 */
 	virtual void cancel(common::AbstractTimeout& timeout);
 
-	/**
-	 * Method to be called when the OSEK alarm expires so that the TimeoutManger
-	 * can notify the registered listener
-	 */
 	virtual void alarmExpired();
 
 	virtual void init() {}
@@ -52,7 +30,6 @@ public:
 
 
 private:
-	/** type of pool of Timeout objects */
 	typedef SLinkedListSet<common::AbstractTimeout>
 									tTimeoutList;
 
@@ -64,7 +41,6 @@ public:
 	 */
 	void adjustTimeouts(uint32 time);
 private:
-	/** pool of Timeout objects to use */
 	tTimeoutList				fActiveTimeouts;
 };
 
