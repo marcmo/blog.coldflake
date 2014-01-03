@@ -254,6 +254,52 @@ article {
   margin: 0 0 1em 2em; }
 
 div {
+  &.tabelofcontents {
+    background-color: $light-grey;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    color: $elephant-grey;
+    width: 17em;
+    font-size: 0.9em;
+    font-family: "facitweb", "museo-sans-1", "museo-sans-2", sans-serif;
+    padding-top: 1em;
+    a {
+      color: $green-toc;
+      &:focus, &:hover {
+        color: $green-link;
+      }
+    }
+    hr {
+      width: 15em;
+      height: 2px;
+      background-color: $light-grey;
+      color: $light-grey;
+      border: 0; }
+    p {
+      margin: 10px;
+    }
+    code {
+      font-size: 0.9em;
+      font-family: Monaco, Consolas, "Courier New", monospace;
+      background-color: $light-grey;
+      padding-left: 0;
+      padding-right: 0;
+      border: 0; }
+    h3 {
+      color: $elephant-grey;
+      margin: 0;
+      padding: 0 20px 10px 10px;
+      text-transform: uppercase;
+      font-size: 1.3em;
+      a {
+        color: $light-grey;
+      }
+    }
+    h4 {
+      margin: 0;
+      padding: 0 0 0 0.6em;
+    }
+  }
   &.information {
     background-color: $cloud-black;
     color: $light-grey;
@@ -370,6 +416,12 @@ header.home {
 @media all and (max-width:64.375em) {
   div {
     &.information {
+      width: 100%;
+      hr {
+        width: 90%;
+      }
+    }
+    &.tabelofcontents {
       width: 100%;
       hr {
         width: 90%;

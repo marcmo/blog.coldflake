@@ -4,8 +4,22 @@ description: another selection of the some useful unix commands
 tags: unix, bash
 ---
 
-<img src="/images/unixtools2012/aurora.jpg" alt="aurora">
+<div class="tabelofcontents rightinfo">
 
+### Content
+
+* [tr](#tr)
+* [sort](#sort)
+* [uniq](#uniq)
+* [split and cat](#split-and-cat)
+* [substitution operations](#substitution-operations)
+* [calculate size of files](#calculate-the-size-of-all-files-found-by-find)
+* [df](#df)
+* [dd](#dd)
+* [zip](#zip)
+* [hexdump](#hexdump)
+
+</div>
 
 This year has been quite busy with lot's of great but stressful changes in my professional and personal life. That's why I did not find a lot of time to write new blog posts. Now that the year is turning to an end I at least want to summarize some of the unix commands I found helpful over the year.  
 As [last year](/posts/2011-12-31-bash-features-of-the-year.html) I'm going to list 10 unix commands out of a larger collection of little examples I jotted down. The list has no particular order, just the way they came in handy for me.

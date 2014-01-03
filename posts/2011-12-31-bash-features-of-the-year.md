@@ -6,7 +6,25 @@ tags: unix, bash
 
 ![](/images/unixtools2011/snowtrees.jpg)
 
-Whenever I find some useful command line utility I made it a habit to write it down so that I can come back later in case I don't remember. Turns out that it is quit a lot that I note. The following is a distilled version of my favorite ones from 2011. For most of them I found examples somewhere on the net but unfortunately didn't not that information so I cannot refer back to the original source.
+Whenever I find some useful command line utility I made it a habit to write it down so that I can come back later in case I don't remember. Turns out that it is quit a lot that I note.
+
+<div class="tabelofcontents rightinfo">
+
+### Content
+
+* [diffing folders](#diffing-two-folders)
+* [find a manpage](#manpages-for-a-specific-topic)
+* [cut & paste](#cutpaste)
+* [watch](#watch)
+* [du](#du)
+* [find](#find)
+* [seq](#seq-command)
+* [file & nm](#compiled-files)
+* [host & dig](#dns-tools)
+
+</div>
+
+The following is a distilled version of my favorite ones from 2011. For most of them I found examples somewhere on the net but unfortunately didn't not that information so I cannot refer back to the original source.
 
 ## 1> diffing two folders
 
