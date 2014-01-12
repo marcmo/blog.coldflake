@@ -18,7 +18,8 @@ Further more, no virtual functions are needed whatsoever which can be important 
 
 ## First Implementation
 
-Before starting of I'd like to mention that the whole idea behind this delegate implementation originates from [Sergey Ryazanov] who wrote an excellent article about [the impossibly fast c++ delegate]. The goals for his implementation were:
+Before starting of I'd like to mention that the whole idea behind this delegate implementation originates from [Sergey Ryazanov] who wrote an excellent article about [the impossibly fast c++ delegate]. It is by no means complete but hopefully conveys the underlying ideas as well as the motivation for using variadic templates.  
+The goals for Sergey's implementation were:
 
 * performance (the faster the better)
 * no dynamic memory allocation
