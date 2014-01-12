@@ -9,23 +9,23 @@ That reminded me of some other example where variadic templates have been a joy 
 
 ## What are Delegates?
 
-Delegates enable you to pass around callable entities without introducing a too tight coupling that is usually the case when using interfaces in form of abstract base classes. They are a little like function pointers in C but in a more type-safe manner. As such they are well suited e.g. for systems that communicate through events.
+Delegates enable you to pass around callable entities without introducing a too tight coupling that is usually the case when using interfaces in form of abstract base classes. They are a little like function pointers in C but in a more type-safe manner and do not only work for free functions but also for member functions. As such they are well suited e.g. for systems that communicate through events.
 
 ## Why Delegates?
 
-So why use delegates when you can also pass around objects that offer the required virtual functions in their interface? This technique also works but introduces too many dependencies for my taste. What if you cannot change the interface of the object you are using?  
+So why use delegates when you can also pass around objects that offer the required virtual functions in their interface? This works but introduces too many dependencies for my taste. What if you cannot change the interface of the object you are using? By using delegates instead of an explicit interface the requirements for client code are minimized. If you are implementing some kind of asynchronous service, it's always a good idea to assume the least possible amount about your users. The result is a more functional rather then object oriented API.  
 Further more, no virtual functions are needed whatsoever which can be important when memory is scarce. The delegates I am talking about have a compile time interface only.
 
 ## First Implementation
 
-Before starting of I'd like to mention that the whole idea behind this delegate implementation originates from Sergey Ryazanov who wrote an excellent article about [the impossibly fast c++ delegate]. The goals for his implementation where:
+Before starting of I'd like to mention that the whole idea behind this delegate implementation originates from [Sergey Ryazanov] who wrote an excellent article about [the impossibly fast c++ delegate]. The goals for his implementation were:
 
 * performance (the faster the better)
 * no dynamic memory allocation
 * compatible with the C++ Standard
 
-Exactly the things that where also dear to my usage (mainly in embedded systems programming) where dynamic memory allocation is often not possible.  
-The trick for a Delegate implementation is that the code that will end up calling back your delegate must not have any type dependencies to the code that implements the callback function. In Sergeys implementation a Delegate will store an untyped pointer to an object and a member-function-pointer.  
+Exactly the things that were also important to my usage (mainly in embedded systems programming) where dynamic memory allocation is often not possible.  
+The trick for a Delegate implementation is that the code that will end up calling back your delegate must not have any type dependencies to the code that implements the callback function. In Sergeys implementation a Delegate will store an *untyped pointer to an object* and a *member-function-pointer*.  
 Here is a first sketch for a fixed return type and a fixed parameter:
 
 ~~~ {.cpp}
@@ -63,6 +63,7 @@ private:
 };
 ~~~
 
+The `Delegate` class provides two public functions: the static `from_function` is used to construct the delegate. Here the instance itself is stored along with a `methodCaller` function pointer that casts the untyped stored pointer back to it's original type. The function call operator will be used to invoke the delegate.
 Notice that the compiler will bake in the type information about `T` so that when the delegate is invoked it knows exactly about the types involved. Thus the `static_cast` in the `methodCaller` is by no means unsafe.
 
 ### Checking Equality
@@ -378,6 +379,7 @@ int main()
 There you go. An extremely fast delegate implementation that looks quite usable to my eyes thanks to C++11's variadic templates.
 
 [the impossibly fast c++ delegate]:http://www.codeproject.com/Articles/11015/The-Impossibly-Fast-C-Delegates
+[Sergey Ryazanov]:http://www.codeproject.com/Members/Sergey-Ryazanov
 [Andrei]:http://erdani.com/
 [his talk at GoingNative 2012]:http://channel9.msdn.com/Events/GoingNative/GoingNative-2012/Variadic-Templates-are-Funadic
 [excellent article]:http://www.jeremyong.com/blog/2014/01/10/interfacing-lua-with-templates-in-c-plus-plus-11/
