@@ -7,11 +7,16 @@ tags: C++, templates, lua
 Yesterday I came across an [excellent article] from [Jeremy Ong] that introduces an extremely nice solution for integrating C++ and Lua code. Jeremy used a technique based on C++ meta-programming in conjunction with C++11 variadic templates to call Lua functions from C++ code.  
 That reminded me of some other example where variadic templates have been a joy to work with: coding delegates in C++.
 
-## What are Delegates?
+## Why Delegates?
+
+<div class="information rightinfo">
+
+### "Don't call us, we'll call you"
 
 Delegates enable you to pass around callable entities without introducing a too tight coupling that is usually the case when using interfaces in form of abstract base classes. They are a little like function pointers in C but in a more type-safe manner and do not only work for free functions but also for member functions. As such they are well suited e.g. for systems that communicate through events.
 
-## Why Delegates?
+</div>
+
 
 So why use delegates when you can also pass around objects that offer the required virtual functions in their interface? This works but introduces too many dependencies for my taste. What if you cannot change the interface of the object you are using? By using delegates instead of an explicit interface the requirements for client code are minimized. If you are implementing some kind of asynchronous service, it's always a good idea to assume the least possible amount about your users. The result is a more functional rather then object oriented API.  
 Further more, no virtual functions are needed whatsoever which can be important when memory is scarce. The delegates I am talking about have a compile time interface only.
@@ -335,7 +340,7 @@ makeDelegate(return_type (T::*)(params...))
 
 ~~~
 
-Puuhh...looks worse than it is since this is only library code that users of our delegate implementation will never need to look at. The `DelegateMaker` togther with the `makeDelegate` function is needed to make use of C++'s template argument deduction which unfortunately only works on template functions and not class templates. But now we can easily have our cake and eat it, too.
+Puuhh...looks worse than it is since this is only library code that users of our delegate implementation will never need to look at. The `DelegateMaker` together with the `makeDelegate` function is needed to make use of C++'s template argument deduction which unfortunately only works on template functions and not class templates. But now we can easily have our cake and eat it, too.
 
 ### Usage
 
