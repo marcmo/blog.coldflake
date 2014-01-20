@@ -2,7 +2,7 @@
 
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
   border: 0;
-  font-weight: inherit;
+  // font-weight: inherit;
   font-style: inherit;
   font-size: 100%;
   font-family: inherit;
@@ -21,6 +21,11 @@ body {
   padding: 0;
   font-family: "ff-tisa-web-pro", serif;
 }
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  color: black;
+}
+
 h1 {
   font-size: 2.30em;
   line-height: 1;
@@ -31,6 +36,7 @@ h2 {
   font-size: 1.8em;
   margin-bottom: 0.75em;
   margin-top: 1.5em;
+  font-weight: 600;
 }
 
 h3 {
@@ -54,11 +60,6 @@ h5 {
 h6 {
   font-size: 1em;
   font-weight: 700;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 400;
-  color: black;
 }
 
 table {
@@ -88,6 +89,8 @@ a img {
   border: none;
 }
 
+p
+
 p img {
   &.left {
     float: left;
@@ -103,8 +106,8 @@ p img {
 #mobile.column {
   img {
     max-width: 100%;
-    margin-left: 0.5em !important;
-    margin-top: 0.5em !important;
+    // margin-left: 0.5em !important;
+    // margin-top: 0.5em !important;
   }
 }
 
@@ -394,7 +397,8 @@ ol#toc li {
   p {
     margin-bottom: 1em;
     font-size: 0.9em;
-    color: $young-mouse-grey; }
+    // color: $young-mouse-grey;
+  }
   h2 {
     font-size: 1.3em;
     line-height: 1.2em;
@@ -429,6 +433,9 @@ header.home {
     }
   }
   div.container { margin: 3em 6em 0 12em; }
+  #postitem {
+    margin-bottom: 1.5em;
+  }
 }
 //width less then 800px
 @media all and (max-width:50.000em) {
@@ -437,16 +444,36 @@ header.home {
     min-width: 220px;
     width: 100%;
   }
+  div#posts {
+    h1 {
+      text-align: center;
+    }
+    a {
+      color: black;
+      &:visited {
+        color: black;
+      }
+    }
+  }
+  #postitem {
+    text-align: center;
+    margin-bottom: 3em;
+  }
   header.home { display: none; }
   #mobile { display: block; }
 }
 //width less then 500px
 @media all and (max-width:31.250em) {
   body {
-    font-size:100%;
+    font-size:110%;
+    font-weight: 400;
+    color: black;
   }
   div.container {
     margin: 0 10px 0 10px;
+  }
+  div#description {
+    font-size: 1.1em;
   }
 }
 //width more then 800px
@@ -577,6 +604,10 @@ ol#toc, body.postlist ul {
 
 ol#toc li {
   list-style-type: none;
+}
+
+p#subline {
+  color: $light-grey;
 }
 
 

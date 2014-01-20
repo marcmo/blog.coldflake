@@ -128,13 +128,12 @@ escapeStr = concatMap escape
 
 descriptionCtx :: Context String
 descriptionCtx =
-    constField "description" description `mappend`
+    constField "blogDescription" blogDescription `mappend`
     defaultContext
 
 postCtx :: Context String
 postCtx =
     dateField "date" "%Y-%m-%d" `mappend`
-    constField "description" description `mappend`
     descriptionCtx
 
 allPostsCtx :: Context String
@@ -147,12 +146,11 @@ homeCtx :: String -> Context String
 homeCtx list =
     constField "posts" list `mappend`
     constField "title" "Index" `mappend`
-    constField "description" description `mappend`
     constField "tagcloud" "" `mappend`
     descriptionCtx
 
-description ::  String
-description = "Exploring and learning in the dazzling array of fascintating software technologies"
+blogDescription ::  String
+blogDescription = "Exploring and learning in the dazzling array of fascintating software technologies"
 
 feedCtx :: Context String
 feedCtx =
