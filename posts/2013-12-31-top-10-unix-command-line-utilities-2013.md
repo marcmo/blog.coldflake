@@ -348,6 +348,14 @@ Another nice example is to remove the `http_proxy` from the environment when tem
 <span class="prompt">tmp</span> > (unset http_proxy; wget http://www.example.com/abc.tar.gz)
 </pre>
 
+### Bonus Example
+
+I just found another very nice usage of subshells on the discussion board of [vimcasts]. Barton Chittenden showed how to avoid the use of temporary files for using vimdiff using process substitution in bash:
+
+<pre class="terminal">
+<span class="prompt">tmp</span> > vimdiff <(sort file1) <(sort file2)
+</pre>
+
 ## 8> Tee
 
 Sometimes there is more then one consumer for some command output. This is what `tee` can be used for. It takes as an input the output of some other command using `stdin` and duplicates it, feeding the two streams to a file-descriptor and `stdout`.
@@ -505,3 +513,4 @@ Ok, this was my bash feature list of the year. By no means am I an expert for th
 [This guy here]:http://codeseekah.com/2012/03/11/ack-grep-vs-grep/
 [ack-grep]:http://beyondgrep.com/
 [commandlinefu-example]:http://www.commandlinefu.com/commands/view/6334/use-tee-to-process-a-pipe-with-two-or-more-processes
+[vimcasts]:http://vimcasts.org/episodes/comparing-buffers-with-vimdiff/
