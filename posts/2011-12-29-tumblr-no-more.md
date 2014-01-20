@@ -1,6 +1,6 @@
 ---
 title: Good Bye Tumblr - Welcome Hakyll
-description: moving away from mum-style blogging
+description: Moving away from mum-style blogging to more hacker-style blogging.
 keywords: blogging, programming, productivity
 tags: blogging, git
 ---

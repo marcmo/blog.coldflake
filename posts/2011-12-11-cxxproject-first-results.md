@@ -1,6 +1,6 @@
 ---
 title: Encouraging performance results
-description: first results after introducing cxxproject on a large scale
+description: First results after introducing cxxproject on a large scale, quite promising.
 keywords: C++, programming, productivity
 tags: C++, ruby, rake, performance, dsl
 ---

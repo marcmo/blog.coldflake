@@ -1,6 +1,6 @@
 ---
 title: Top 10 Unix Command Line Utilities 2012
-description: another selection of the some useful unix commands
+description: Another selection of the some useful unix commands which I found useful.
 tags: unix, bash
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: QuickChecking C++ Code
-description: the haskell testing framework QuickCheck can be used quite beneficial to test C++ code
+description: The haskell testing framework which can be used quite beneficial to test C++ code
 tags: haskell, C++, quickcheck, testing
 ---
 

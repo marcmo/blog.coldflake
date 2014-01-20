@@ -1,6 +1,6 @@
 ---
 title: Start of Year with Shunting Yard
-description: applying dijkstras shunting yard algorithm for expression evaluation
+description: Applying dijkstras shunting yard algorithm for expression evaluation.
 tags: haskell, puzzle, algorithm, lua
 ---
 

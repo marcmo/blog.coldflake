@@ -1,6 +1,6 @@
 ---
 title: A Tool for a Fool
-description: correcting misspelled header file include lines
+description: A simple tool for correcting misspelled header file include lines that creep in when working with Windows users.
 tags: haskell, C++, tool, algorithm, datastructure
 ---
 

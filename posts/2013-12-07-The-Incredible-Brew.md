@@ -1,6 +1,6 @@
 ---
 title: The Incredible Brew
-description: The missing package manager for OS X
+description: The missing package manager for OS X which solves a lot of headaches.
 tags: unix, osx, tools, git, ruby, bash
 ---
 

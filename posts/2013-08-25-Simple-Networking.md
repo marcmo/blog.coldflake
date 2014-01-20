@@ -1,6 +1,6 @@
 ---
 title: Simple Networking
-description: communicating over UDP
+description: Communicating over UDP sockets in haskell.
 tags: udp, networking, haskell, C++
 ---
 

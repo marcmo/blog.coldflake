@@ -1,6 +1,6 @@
 ---
 title: C++ Delegates On Steroids
-description: generic version of impossibly fast delegate using variadic templates
+description: Generic version of impossibly fast delegate using C++11 variadic templates.
 tags: C++, templates, lua
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Lunch break coding
-description: prolog problem solved in haskell
+description: A small prolog problem solved in haskell
 tags: haskell, puzzle, algorithm
 ---
 

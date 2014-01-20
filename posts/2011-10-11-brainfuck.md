@@ -1,6 +1,6 @@
 ---
 title: Lunch break coding - brainfuck
-description: prolog problem solved in haskell
+description: Implementing a brainfuck interpreter in haskell.
 tags: haskell, puzzle, algorithm
 ---
 

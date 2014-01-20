@@ -1,6 +1,6 @@
 ---
 title: Building C/C++ Projects with Cxxproject
-description: intro for rake based build tool for C/C++ projects
+description: Intro to a Build Tool for C/C++ projects that is based on rake, the ruby task dependency DSL
 tags: C++, ruby, rake, dsl
 ---
 

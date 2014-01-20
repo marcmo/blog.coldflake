@@ -1,6 +1,6 @@
 ---
 title: Scripting Git with Ghc Evaluation Mode
-description: some examples that show the usage of haskell's evaluation mode
+description: Some examples that show the usage of haskell's evaluation mode.
 tags: haskell, git, ghc
 ---
 

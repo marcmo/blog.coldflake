@@ -1,6 +1,6 @@
 ---
 title: Lunch break coding - First Nonrepeating Character
-description: simple programming puzzle
+description: Simple programming puzzle to find the first nonrepeating character in a string.
 tags: haskell, puzzle, algorithm
 ---
 

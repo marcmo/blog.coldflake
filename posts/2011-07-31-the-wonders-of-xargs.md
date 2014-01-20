@@ -1,6 +1,6 @@
 ---
 title: The Wonders of xargs
-description: exploring the goodness of xargs
+description: Exploring the goodness of xargs, one of the most versatile unix utilities.
 tags: unix, bash
 keywords: bash
 ---

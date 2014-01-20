@@ -1,6 +1,6 @@
 ---
 title: Top 10 Unix Command Line Utilities 2011
-description: a selection of the most useful bash commands I (re)-discovered this year
+description: A selection of the most useful bash commands I (re)-discovered this year.
 tags: unix, bash
 ---
 
