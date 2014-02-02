@@ -16,7 +16,12 @@ main = hakyll $ do
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
     -- Static files
-    match ("images/**" .||. "js/**" .||. "code/**" .||. "test.html" .||. "404.html") $ do
+    match ("images/**"
+          .||. "js/**"
+          .||. "code/**"
+          .||. "fonts/**"
+          .||. "test.html"
+          .||. "404.html") $ do
         route   idRoute
         compile copyFileCompiler
 
@@ -76,7 +81,7 @@ main = hakyll $ do
 
     -- Post tags
     tagsRules tags $ \tag pattern -> do
-        let title = "Posts tagged " ++ tag
+        let title = "<i class=\"icon-tag\"></i> Posts tagged " ++ tag
         route idRoute
         compile $ do
             list <- postList tags pattern recentFirst

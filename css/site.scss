@@ -207,7 +207,13 @@ footer {
   p {
     font-size: 0.8em;
     line-height: 1.1em;
-    color: $light-grey;
+    a {
+      &:visited {
+        text-decoration: none;
+        color: $mouse-grey;
+      }
+    }
+    // color: $light-grey;
     padding: 1em 0; }
   #oliver-on-twitter a {
     display: -moz-inline-box;
@@ -610,5 +616,110 @@ p#subline {
   color: $light-grey;
 }
 
+@font-face {
+  font-family: 'icomoon';
+  src:url('/fonts/icomoon.eot');
+  src:url('/fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/icomoon.woff') format('woff'),
+    url('/fonts/icomoon.ttf') format('truetype'),
+    url('/fonts/icomoon.svg#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
 
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-smiley:before {
+	content: "\e600";
+}
+.icon-sad:before {
+	content: "\e601";
+}
+.icon-checkmark:before {
+	content: "\e602";
+}
+.icon-checkmark2:before {
+	content: "\e603";
+}
+.icon-github:before {
+	content: "\e604";
+}
+.icon-twitter:before {
+	content: "\e605";
+}
+.icon-user:before {
+	content: "\e606";
+}
+.icon-feed2:before {
+	content: "\e607";
+}
+.icon-tag:before {
+	content: "\e608";
+}
+.icon-tags:before {
+	content: "\e609";
+}
+.icon-number:before {
+	content: "\e60a";
+}
+.icon-number2:before {
+	content: "\e60b";
+}
+.icon-number3:before {
+	content: "\e60c";
+}
+.icon-number4:before {
+	content: "\e60d";
+}
+.icon-number5:before {
+	content: "\e60e";
+}
+.icon-number6:before {
+	content: "\e60f";
+}
+.icon-number7:before {
+	content: "\e610";
+}
+.icon-number8:before {
+	content: "\e611";
+}
+.icon-number9:before {
+	content: "\e612";
+}
+.icon-number10:before {
+	content: "\e613";
+}
+.icon-envelope-alt:before {
+	content: "\e614";
+}
+.icon-plus-sign:before {
+	content: "\e615";
+}
+.icon-minus-sign:before {
+	content: "\e616";
+}
+.icon-plus:before {
+	content: "\e617";
+}
+.icon-minus:before {
+	content: "\e618";
+}
+.icon-number {
+  vertical-align: middle;
+  font-size: 1.2em;
+}
+.icon-tags {
+  vertical-align: middle;
+}
