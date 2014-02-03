@@ -301,6 +301,10 @@ div {
     font-family: "facitweb", "museo-sans-1", "museo-sans-2", sans-serif;
     padding-top: 1em;
     a {
+      color: $abstract-grey;
+      &:visited {
+        color: $abstract-grey;
+      }
       &:focus, &:hover {
         color: $light-grey;
       }
@@ -334,6 +338,13 @@ div {
       background-color: none;
       margin: 0 1em 1em;
       padding: 0 1em;
+    }
+    table, td, th {
+      vertical-align: baseline;
+    }
+    table {
+      border: none;
+      margin-left: 10px;
     }
   }
 }
@@ -370,11 +381,11 @@ section#page img {
     }
     &:hover {
       color: white;
-      background-color: $green-link;
+      background-color: $light-grey;
     }
     &:active {
       color: white;
-      background-color: $light-green;
+      background-color: $light-grey;
       opacity: 0.75!important;
     }
   }
@@ -489,6 +500,9 @@ header.home {
   #postitem {
     margin-bottom: 2.5em;
   }
+  .smallImage {
+    width:90%;
+  }
 }
 //width more then 1200px
 @media screen and (min-width:75.000em) and (min-height:31.250em) {//1200x500px
@@ -601,6 +615,15 @@ ol#toc li {
 
 p#subline {
   color: $light-grey;
+  a {
+    color: $abstract-grey;
+    &:visited {
+      color: $abstract-grey;
+    }
+    &:focus, &:hover {
+      color: $light-grey;
+    }
+  }
 }
 
 @font-face {
@@ -703,10 +726,13 @@ p#subline {
 .icon-minus:before {
   content: "\e618";
 }
+.icon-calendar-empty:before {
+  content: "\e619";
+}
+.icon-thread:before {
+  content: "\e61a";
+}
 .icon-number {
   vertical-align: middle;
   font-size: 1.2em;
-}
-.icon-tags, .icon-clock {
-  vertical-align: middle;
 }
