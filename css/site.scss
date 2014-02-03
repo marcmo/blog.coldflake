@@ -2,7 +2,6 @@
 
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
   border: 0;
-  // font-weight: inherit;
   font-style: inherit;
   font-size: 100%;
   font-family: inherit;
@@ -16,7 +15,6 @@ body {
   line-height: 1.5;
   font-size: 1.2em;
   word-spacing: 0.15em;
-  // position: relative;
   margin: 0 auto;
   padding: 0;
   font-family: "ff-tisa-web-pro", serif;
@@ -106,8 +104,6 @@ p img {
 #mobile.column {
   img {
     max-width: 100%;
-    // margin-left: 0.5em !important;
-    // margin-top: 0.5em !important;
   }
 }
 
@@ -190,10 +186,6 @@ html {
   background-color: $background-grey;
 }
 
-// div.container {
-//   margin: 3em 12em 0 12em;
-// }
-
 #posts h1 {
   margin-top: 0.5em;
   font-weight: 500;
@@ -213,16 +205,8 @@ footer {
         color: $mouse-grey;
       }
     }
-    // color: $light-grey;
     padding: 1em 0; }
-  #oliver-on-twitter a {
-    display: -moz-inline-box;
-    -moz-box-orient: vertical;
-    display: inline-block;
-    vertical-align: baseline;
-    zoom: 1;
-    background: url(/images/twitter.png) no-repeat left center;
-    padding: 0 0 0 22px; } }
+ }
 
 article {
   margin-bottom: 1em;
@@ -403,7 +387,6 @@ ol#toc li {
   p {
     margin-bottom: 1em;
     font-size: 0.9em;
-    // color: $young-mouse-grey;
   }
   h2 {
     font-size: 1.3em;
@@ -418,6 +401,7 @@ header.home {
   margin-top: 0;
   margin-left: 10px;
   background: url("/images/mountainflake.png") no-repeat;
+  background-size: 100% auto;
   font-family: sans-serif;
   width: 200px;
 }
@@ -645,79 +629,79 @@ p#subline {
 }
 
 .icon-checkmark:before {
-	content: "\e600";
+  content: "\e600";
 }
 .icon-github:before {
-	content: "\e601";
+  content: "\e601";
 }
 .icon-twitter:before {
-	content: "\e602";
+  content: "\e602";
 }
 .icon-user:before {
-	content: "\e603";
+  content: "\e603";
 }
 .icon-feed2:before {
-	content: "\e604";
+  content: "\e604";
 }
 .icon-tag:before {
-	content: "\e605";
+  content: "\e605";
 }
 .icon-tags:before {
-	content: "\e606";
+  content: "\e606";
 }
 .icon-clock:before {
-	content: "\e607";
+  content: "\e607";
 }
 .icon-lab:before {
-	content: "\e608";
+  content: "\e608";
 }
 .icon-menu:before {
-	content: "\e609";
+  content: "\e609";
 }
 .icon-number:before {
-	content: "\e60a";
+  content: "\e60a";
 }
 .icon-number2:before {
-	content: "\e60b";
+  content: "\e60b";
 }
 .icon-number3:before {
-	content: "\e60c";
+  content: "\e60c";
 }
 .icon-number4:before {
-	content: "\e60d";
+  content: "\e60d";
 }
 .icon-number5:before {
-	content: "\e60e";
+  content: "\e60e";
 }
 .icon-number6:before {
-	content: "\e60f";
+  content: "\e60f";
 }
 .icon-number7:before {
-	content: "\e610";
+  content: "\e610";
 }
 .icon-number8:before {
-	content: "\e611";
+  content: "\e611";
 }
 .icon-number9:before {
-	content: "\e612";
+  content: "\e612";
 }
 .icon-number10:before {
-	content: "\e613";
+  content: "\e613";
 }
 .icon-envelope-alt:before {
-	content: "\e614";
+  content: "\e614";
 }
 .icon-plus-sign:before {
-	content: "\e615";
+  content: "\e615";
 }
 .icon-minus-sign:before {
-	content: "\e616";
+  content: "\e616";
 }
 .icon-plus:before {
-	content: "\e617";
+  content: "\e617";
 }
 .icon-minus:before {
-	content: "\e618";
+  content: "\e618";
 }
 .icon-number {
   vertical-align: middle;
