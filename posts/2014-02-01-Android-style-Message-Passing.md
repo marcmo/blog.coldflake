@@ -7,7 +7,8 @@ tags: android, C++, concurrency, ipc
 Last week I finished a substantial rewrite of the concurrency portions in the code of a fairly
 complex embedded system we currently develop at work. It has been quite a roller-coaster ride and I
 went back and forth between moments of joy and situations where I would tear my hair out. In the end
-I'm quite happy with the result and want to reflect about some of the things I learned.  
+I'm quite happy with the result and want to reflect about some of the things I learned.
+
 Our target platform is very restricted concerning memory footprint and CPU and we have only a very
 basic operating system. Thankfully we can use C++ (with some restrictions) so it's a rather pleasant
 development platform. The OS has support for [preemptive scheduling] of computational execution
@@ -59,7 +60,7 @@ they introduce blocking into the system which is highly undesirable!
 Using messages to invoke a certain behavior might sound unfamiliar to most object oriented
 programmers today but is actually one of the original concepts behind object orientation. Java or
 C++ hide the messaging idea behind the scenes, smalltalk makes no fuss about it: you use messages to
-communicate. But those forms of communication are synchronous, i.e. the caller blocks until the
+communicate. But those forms of communication are *synchronous*, i.e. the caller blocks until the
 receiver has finished executing code.  
 In smalltalk sending messages has the form of `[object] [message]`. Here is a small example from
 smalltalk where we send the message factorial to 42:
@@ -68,7 +69,7 @@ smalltalk where we send the message factorial to 42:
 42 factorial
 ~~~
 
-For making use of message passing in a concurrent environment, it needs to be asynchronous (&rarr;
+For making use of message passing in a concurrent environment, it needs to be *asynchronous* (&rarr;
 non-blocking). The caller sends a message and is done. If some information needs to be transfered
 back to the caller, this has to happen in another message. To be able to work on messages, the
 caller needs to maintain a message-queue. Messages from a caller will be enqueued and processed on
@@ -113,7 +114,7 @@ match to the Android Looper framework:
 
 </div>
 
-For me the most natural way to grasp those concepts was to associate the motivation for this
+For me the most natural way to grasp those concepts was to associate the motivation behind this
 framework with the implementation details: we are running on a client thread and want to have code
 executed in another thread context.  
 A queue is a perfect match since we can enqueue our request (= message) that
@@ -127,6 +128,10 @@ There is no need for explicit locking, synchronization happens implicitly inside
 <div class="smallImage">
   <img src="../images/looper/Looper.png">
 </div>
+
+One looper has one message-queue, each message has a handler and each handler is associated with
+exactly one looper. The handler is bound to it's looper at construction time and will only be executing
+in the thread the looper is running in.
 
 ## Message Passing in C++
 
@@ -296,8 +301,8 @@ public:
 
 ~~~
 
-Notice that the message passing approach also allows to send messages to ourselves. That way we get
-a timeout mechanism for free by sending messages with a delay.
+Notice that the message passing approach also allows to send messages to ourselves if we are a
+handler. That way we get a *timer* mechanism for free by sending a message obtained from `*this`.
 
 ## Programming in Message Passing Style
 
@@ -458,7 +463,7 @@ allocated objects.
 On first sight this asynchronous way of calling functions adds a lot of overhead and complexity.
 Checking results on blocking function calls is no more... for every call we have to switch context
 and loose our stack. And debugging your multi-threaded application is not getting easier: wanna take
-a look at your call stack? Well your out of luck, the stack no longer provides a view into the past.  
+a look at your call stack? Well you're out of luck, the stack no longer provides a view into the past.  
 But there are big gains as well. Most important: no need for explicit locking and a non blocking,
 responsive codebase which can be vital e.g. if you are running in the UI thread! Once the code is
 restructured it actually feels nice and tidy again. And in the lack of a full-blown stack for
