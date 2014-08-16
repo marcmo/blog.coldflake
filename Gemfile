@@ -1,3 +1,8 @@
 source :rubygems
 
-gem "sass"
+group "development" do
+  gem "sass"
+  gem "guard"
+  gem "guard-shell"
+  gem "guard-rake"
+end

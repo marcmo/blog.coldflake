@@ -40,7 +40,7 @@ task :clean => [:clean_hakyll]
 
 desc "run webserver on port #{Port} for preview"
 task :preview => :rebuild do
-  sh "./#{haky} preview -p #{Port}"
+  sh "./#{haky} watch -p #{Port}"
 end
 
 desc 'incrementally build site'
@@ -103,7 +103,7 @@ end
 desc 'create new post'
 task :newPost, [:name] do |t,args|
   t = Time.now
-  name = args[:name]
+  name = args[:name].gsub!(/\s/,'-')
   postName = t.strftime("%Y-%m-%d-#{name}.md")
   post = File.join("posts",postName)
   if File.exists?(post)
