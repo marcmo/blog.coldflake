@@ -84,5 +84,5 @@ test the shit out of the code!
 
 [^1]: see Kent Beck's reply on stackoverflow to ["How deep are unit tests"]
 
-["How deep are unit tests"]:(http://stackoverflow.com/questions/153234/how-deep-are-your-unit-tests)
+["How deep are unit tests"]:http://stackoverflow.com/questions/153234/how-deep-are-your-unit-tests
 
