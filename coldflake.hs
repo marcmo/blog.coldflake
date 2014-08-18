@@ -50,6 +50,7 @@ main = hakyll $ do
         route   $ setExtension ".html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" (tagsCtx tags)
+            >>= relativizeUrls
 
     -- Render posts list
     create ["posts.html"] $ do

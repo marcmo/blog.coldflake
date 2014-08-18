@@ -40,7 +40,7 @@ task :clean => [:clean_hakyll]
 
 desc "run webserver on port #{Port} for preview"
 task :preview => :rebuild do
-  sh "./#{haky} watch -p #{Port}"
+  sh "pyweb #{Port}"
 end
 
 desc 'incrementally build site'
@@ -95,7 +95,7 @@ task :deploy => :rebuild do
       sh "git add -u ."
       sh "git add ."
       sh "git commit -m '#{msg}'"
-      sh "git push blog"
+      sh "git push blog master:master"
     end
   end
 end
