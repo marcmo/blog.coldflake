@@ -82,6 +82,28 @@ software -- it's the talent and the ability of the developer.
 On the other hand if the new guy writes your next rails application, the answer is much simpler:
 test the shit out of the code!
 
+## [Edit] The Feedback Loop
+
+After some discussion I had at my office I realized I forgot to mention a very important detail that
+might well favor the *test first and test everything* approach -- the feedback loop. No matter if you
+use unit-tests, integration tests or any other kind of process that helps you validate your software
+behaves as expected: you absolutely got to have some way of harvesting feedback.
+
+~~~ {.ruby}
+    while (!ready)
+      change code
+      compile # if you program in a compiled language
+      deploy
+      run
+~~~
+
+Developing a smartphone app might incur enough of a delay in this cycle to make you fly blind for a
+prolonged period of time. I find that less of a problem since this loop can usually be optimized
+pretty well (even though I mostly develop for embedded targets). But it's not unheard of that in
+some organizations (e.g. an unnamed company I was working for in the past) not every developer has
+the luxury of his own setup and sometimes even has to share the license for the compiler. If you are
+stuck in such a situation a comprehensive suite of unittests will definitely make your life easier!
+
 [^1]: see Kent Beck's reply on stackoverflow to ["How deep are unit tests"]
 
 ["How deep are unit tests"]:http://stackoverflow.com/questions/153234/how-deep-are-your-unit-tests
