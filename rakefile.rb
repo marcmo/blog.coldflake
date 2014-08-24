@@ -100,10 +100,11 @@ task :deploy => :rebuild do
   end
 end
 
-desc 'create new post'
+desc 'create new post with rake newPost["my new post"]'
 task :newPost, [:name] do |t,args|
   t = Time.now
   name = args[:name].gsub!(/\s/,'-')
+  puts "creating next post: #{name}"
   postName = t.strftime("%Y-%m-%d-#{name}.md")
   post = File.join("posts",postName)
   if File.exists?(post)
