@@ -1,7 +1,7 @@
 ---
 title: The Incredible Brew
 description: The missing package manager for OS X which solves a lot of headaches.
-tags: unix, osx, tools, git, ruby, bash
+tags: unix, osx, tool, git, ruby, bash
 ---
 
 ![](/images/brew/flask.png)
