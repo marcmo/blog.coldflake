@@ -40,16 +40,16 @@ main = hakyll $ do
     match "posts/*" $ do
         route   $ setExtension ".html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html" (tagsCtx tags)
+            >>= loadAndApplyTemplate "templates/post.html" (withoutTagcloudCtx tags)
             >>= saveSnapshot "content"
-            >>= loadAndApplyTemplate "templates/default.html" (tagsCtx tags)
+            >>= loadAndApplyTemplate "templates/default.html" (withoutTagcloudCtx tags)
             >>= relativizeUrls
             >>= cleanUpUrls
 
     match "about.md" $ do
         route   $ setExtension ".html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" (tagsCtx tags)
+            >>= loadAndApplyTemplate "templates/default.html" (withoutTagcloudCtx tags)
             >>= relativizeUrls
 
     -- Render posts list
@@ -59,7 +59,7 @@ main = hakyll $ do
             posts <- loadAll "posts/*"
             sorted <- recentFirst posts
             itemTpl <- loadBody "templates/postitem.html"
-            list <- applyTemplateList itemTpl (tagsCtx tags) sorted
+            list <- applyTemplateList itemTpl (withoutTagcloudCtx tags) sorted
             makeItem list
                 >>= loadAndApplyTemplate "templates/posts.html" allPostsCtx
                 >>= loadAndApplyTemplate "templates/default.html" allPostsCtx
@@ -73,7 +73,7 @@ main = hakyll $ do
             posts <- loadAll "posts/*"
             sorted <- take 10 <$> recentFirst posts
             itemTpl <- loadBody "templates/postitem.html"
-            list <- applyTemplateList itemTpl (tagsCtx tags) sorted
+            list <- applyTemplateList itemTpl (withoutTagcloudCtx tags) sorted
             makeItem list
                 >>= loadAndApplyTemplate "templates/index.html" (homeCtx list)
                 >>= loadAndApplyTemplate "templates/default.html" (homeCtx list)
@@ -95,7 +95,7 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html"
                         (constField "title" title `mappend`
                             constField "tagcloud" tagList `mappend`
-                            descriptionCtx)
+                            tagCtx)
                 >>= relativizeUrls
                 >>= cleanUpUrls
 
@@ -132,42 +132,52 @@ escapeStr = concatMap escape
           | x == '+' = "%2B"
           | otherwise = [x]
 
+-- first level contexts
 descriptionCtx :: Context String
 descriptionCtx =
     constField "blogDescription" blogDescription `mappend`
     defaultContext
 
+-- second level contexts
+homeCtx :: String -> Context String
+homeCtx list =
+    constField "posts" list `mappend`
+    constField "title" "Index" `mappend`
+    constField "tagcloud" "" `mappend`
+    constField "mobileimage" "src=\"../images/snowtrees.jpg\"" `mappend`
+    descriptionCtx
+
 postCtx :: Context String
 postCtx =
     dateField "date" "%Y-%m-%d" `mappend`
+    constField "mobileimage" "src=\"../images/roundlogo.png\" width=\"130px\"" `mappend`
     descriptionCtx
 
+tagCtx :: Context String
+tagCtx =
+    constField "mobileimage" "src=\"../images/snowtrees.jpg\"" `mappend`
+    descriptionCtx
+
+-- third level contexts
 allPostsCtx :: Context String
 allPostsCtx =
     constField "title" "All posts" `mappend`
     constField "tagcloud" "" `mappend`
     postCtx
 
-homeCtx :: String -> Context String
-homeCtx list =
-    constField "posts" list `mappend`
-    constField "title" "Index" `mappend`
-    constField "tagcloud" "" `mappend`
-    descriptionCtx
-
-blogDescription ::  String
-blogDescription = "Exploring and learning in the dazzling array of fascintating software technologies"
-
 feedCtx :: Context String
 feedCtx =
     bodyField "description" `mappend`
     postCtx
 
-tagsCtx :: Tags -> Context String
-tagsCtx tags =
+withoutTagcloudCtx :: Tags -> Context String
+withoutTagcloudCtx tags =
     tagsField "prettytags" tags `mappend`
     constField "tagcloud" "" `mappend`
     postCtx
+
+blogDescription ::  String
+blogDescription = "Exploring software technologies"
 
 feedConfiguration :: FeedConfiguration
 feedConfiguration = FeedConfiguration
@@ -186,5 +196,5 @@ postList tags pattern preprocess' = do
     postItemTpl <- loadBody "templates/postitem.html"
     posts <- loadAll pattern
     processed <- preprocess' posts
-    applyTemplateList postItemTpl (tagsCtx tags) processed
+    applyTemplateList postItemTpl (withoutTagcloudCtx tags) processed
 

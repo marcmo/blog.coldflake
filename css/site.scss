@@ -411,7 +411,7 @@ header.home {
   left: 0;
   margin-top: 0;
   margin-left: 10px;
-  background: url("/images/mountainflake.png") no-repeat;
+  background: url("../images/mountainflake.png") no-repeat;
   background-size: 100% auto;
   font-family: sans-serif;
   width: 200px;
@@ -461,7 +461,10 @@ header.home {
     margin-bottom: 3em;
   }
   header.home { display: none; }
-  #mobile { display: block; }
+  #mobile {
+    display: block;
+    text-align: center;
+  }
 }
 //width less then 500px
 @media all and (max-width:31.250em) {
