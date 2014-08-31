@@ -22,11 +22,7 @@ end
 
 desc 'build site'
 file haky => FileList.new("**/*.hs") << out << :checkSass do
-  begin
-    sh "ghc --make #{input} -outputdir bin -o #{haky}"
-  rescue Exception => e
-    puts "buiding #{haky} was not possible: #{e}"
-  end
+  sh "ghc --make #{input} -outputdir bin -o #{haky}"
 end
 
 task :clean_hakyll do
