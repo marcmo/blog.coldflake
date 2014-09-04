@@ -3,6 +3,6 @@ require 'rake'
 require 'rakefile.rb'
 
 guard 'rake', :task => 'build' do
-  watch(/(posts|js|css|images|templates)\/.*/)
+  watch(/(posts\/.*|js\/.*|css\/.*|images\/.*|templates\/.*|.*\.md)/)
 end
 
