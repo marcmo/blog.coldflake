@@ -13,14 +13,18 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 
 body {
   line-height: 1.5;
-  font-size: 1.2em;
-  word-spacing: 0.15em;
+  font-size: 1.1em;
+  // word-spacing: 0.15em;
   margin: 0 auto;
   padding: 0;
-  font-family: "ff-tisa-web-pro", serif;
+  font-family: 'Bitter', serif;
 }
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 400;
+  // font-family: 'Cabin', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
+  word-spacing: 0.15em;
+  // font-weight: 500;
+  font-weight: 400;//Ubuntu
   color: black;
 }
 
@@ -34,7 +38,8 @@ h2 {
   font-size: 1.8em;
   margin-bottom: 0.75em;
   margin-top: 1.5em;
-  font-weight: 600;
+  // font-weight: 600;
+  font-weight: 500;//Ubuntu
 }
 
 h3 {
@@ -42,12 +47,14 @@ h3 {
   line-height: 1;
   margin-top: 1em;
   margin-bottom: 1em;
+  font-weight: 500;
 }
 
 h4 {
   font-size: 1.2em;
   line-height: 1.25;
   margin-bottom: 1.25em;
+  font-weight: 700;
 }
 
 h5 {
@@ -255,7 +262,7 @@ div {
     color: $elephant-grey;
     width: 17em;
     font-size: 0.9em;
-    font-family: "facitweb", "museo-sans-1", "museo-sans-2", sans-serif;
+    font-family: "Ubuntu", sans-serif;
     padding-top: 1em;
     a {
       color: $green-toc;
@@ -299,7 +306,7 @@ div {
     color: $light-grey;
     width: 17em;
     font-size: 0.9em;
-    font-family: "facitweb", "museo-sans-1", "museo-sans-2", sans-serif;
+    font-family: "Ubuntu", sans-serif;
     padding-top: 1em;
     a {
       color: $abstract-grey;
