@@ -25,6 +25,11 @@ file haky => FileList.new("**/*.hs") << out << :checkSass do
   sh "ghc --make #{input} -outputdir bin -o #{haky}"
 end
 
+desc 'guard site'
+task :guard do
+  sh "bundle exec guard"
+end
+
 task :clean_hakyll do
   begin
     sh "./#{haky} clean"

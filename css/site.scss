@@ -95,8 +95,6 @@ a img {
   border: none;
 }
 
-p
-
 p img {
   &.left {
     float: left;
@@ -202,19 +200,22 @@ html {
 }
 
 footer {
+
   border-top: 1px solid $medium-grey;
   margin-top: 1em;
-  p {
+  div {
+    text-align: center;
     font-size: 0.8em;
     line-height: 1.1em;
     a {
+      color: $mouse-grey;
       &:visited {
         text-decoration: none;
         color: $mouse-grey;
       }
     }
     padding: 1em 0; }
- }
+} // footer
 
 article {
   margin-bottom: 1em;
@@ -244,7 +245,7 @@ article {
   }
   figure {
     margin: 0 0 1em; }
-}
+} // article
 
 .leftinfo {
   float: left;
@@ -355,7 +356,7 @@ div {
       margin-left: 10px;
     }
   }
-}
+} // div
 
 section#page img {
   float: left;
@@ -363,7 +364,7 @@ section#page img {
   text-align: center; }
 
 #htmltagcloud {
-  width: auto;
+  width: 250px;
   font-family:"Lucida Sans","Lucida Grande","Lucida Sans Unicode",sans-serif;
   margin: 0;
   padding: 0em;
@@ -375,9 +376,9 @@ section#page img {
   font-size: 0.7em;
   a {
     &:link {
-      -webkit-border-radius: 20px;
-      -moz-border-radius: 20px;
-      border-radius: 20px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
       border: 0 none;
       background-color: $cloud-black;
       color: #fff;
@@ -427,6 +428,19 @@ header.home {
 
 //width less then 1030px
 @media all and (max-width:64.375em) {
+  #htmltagcloud { width: 200px; }
+  header.home {
+    z-index: 90;
+    position: fixed;
+    left: 0;
+    margin-top: 0;
+    margin-left: 10px;
+    background: url("../images/mountainflake3.png") no-repeat;
+    background-size: 100% auto;
+    font-family: sans-serif;
+    width: 100px;
+  }
+  header h1 { a { height: 200px; } }
   div {
     &.information {
       width: 100%;
@@ -500,6 +514,7 @@ header.home {
 
 //width more then 1030px
 @media screen and (min-width:64.375em) {//1030px
+  header h1 { a { height: 100px; } }
   body {
     font-size:130%;
     max-width:95%;
@@ -516,7 +531,7 @@ header.home {
   }
 }
 //width more then 1200px
-@media screen and (min-width:75.000em) and (min-height:31.250em) {//1200x500px
+@media screen and (min-width:75.000em) {
   body {
     font-size:135%;
     max-width:75%;
@@ -533,7 +548,6 @@ header.home {
 
 header h1 {
   a {
-    height: 135px;
     display: block;
     line-height: 80px;
   }
@@ -604,10 +618,6 @@ dt a {
 
 *::-moz-selection, ::selection {
   background: $light-yellow none repeat scroll 0 0;
-}
-
-footer p a {
-  color: $mouse-grey;
 }
 
 section#page h1 {
