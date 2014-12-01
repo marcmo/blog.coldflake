@@ -1,3 +1,7 @@
+# Deprecated
+
+this is my old blog site...new one is at [blog.coldflake.com](https://github.com/marcmo/blog.coldflake.com)
+
 ## Blog Website generated with [hakyll]
 
 This Blog used to be hosted at tumblr and now is built using [hakyll].
